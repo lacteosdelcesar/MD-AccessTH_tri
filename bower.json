@@ -1,0 +1,50 @@
+{
+  "name": "triangular",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "1.5.5",
+    "angular-animate": "1.5.5",
+    "angular-cookies": "1.5.5",
+    "angular-material": "1.1.0-rc4",
+    "angular-material-data-table": "0.10.5",
+    "angular-messages": "1.5.5",
+    "angular-moment": "~1.0.0-beta.4",
+    "angular-sanitize": "1.5.5",
+    "angular-ui-router": "~0.2.18",
+    "animatewithsass": "~3.2.2",
+    "font-awesome": "~4.5.0",
+    "jquery": "~2.2.1",
+    "material-design-iconic-font": "~2.2.0",
+    "angular-permission": "^2.3.6",
+    "angular-jwt": "^0.0.9",
+    "restangular": "^1.5.2"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.5.5"
+  },
+  "overrides": {
+    "angular-material": {
+      "main": [
+        "angular-material.js",
+        "angular-material.scss"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "./css/font-awesome.css",
+        "./fonts/*"
+      ]
+    }
+  },
+  "resolutions": {
+    "angular": "1.5.5"
+  },
+  "main": [
+    "triangular.js",
+    "triangular.css",
+    "triangular.scss"
+  ],
+  "ignore": [
+    "README.md"
+  ]
+}

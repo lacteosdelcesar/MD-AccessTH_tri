@@ -1,0 +1,40 @@
+<md-content class="email-single md-padding full-width">
+    <md-card flex>
+        <md-toolbar class="toolbar-default" md-theme="{{triSkin.elements.toolbar}}">
+            <div layout="row" layout-align="space-between start">
+                <div class="email-single-title" flex>
+                    <h3 flex>{{vm.buzon.empleado.nombre}}</h3>
+                </div>
+                <div layout="row" layout-align="space-between center">
+                    <p class="md-caption">{{ vm.buzon.fecha | amDateFormat:'D [de] MMMM, h:mm a' }}</p>
+                </div>
+            </div>
+        </md-toolbar>
+
+        <md-divider></md-divider>
+
+        <md-card-content>
+            <p>{{vm.buzon.mensaje}}</p>
+        </md-card-content>
+
+    </md-card>
+    <md-card flex>
+        <md-card-content>
+            <md-input-container class="md-block">
+                <div class="md-body-1">Respuesta</div>
+                <label>
+                    {{ vm.buzon.fecha_respuesta | amDateFormat:'D [de] MMMM, h:mm a' }}
+                </label>
+                    <textarea ng-model="vm.buzon.respuesta" ng-disabled="vm.buzon.fecha_respuesta">
+                    </textarea>
+            </md-input-container>
+
+            <div layout="row" ng-hide="vm.buzon.fecha_respuesta">
+                <span flex></span>
+                <md-button class="md-primary md-raised" ng-click="vm.enviarPQR()">
+                    Responder
+                </md-button>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

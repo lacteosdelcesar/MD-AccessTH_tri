@@ -1,0 +1,18 @@
+// Single Email
+.email-single {
+  background: transparent !important;
+  md-toolbar {
+    padding: 0 16px;
+    min-height: 50px;
+    max-height: 50px;
+    .email-single-title {
+      > span {
+        display: block;
+      }
+    }
+  }
+
+  textarea {
+    min-height: 120px!important;
+  }
+}

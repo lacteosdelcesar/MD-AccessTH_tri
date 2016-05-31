@@ -1,0 +1,65 @@
+<div flex layout="row" class="email-inbox">
+    <md-content ng-show="vm.quejas_respondidas.length !== 0 || vm.quejas.sin_responder.length !== 0"
+                flex="100" flex-gt-xs="50" flex-gt-lg="50" class="md-whiteframe-z1">
+        <md-list class="inbox-list">
+            <div class="md-primary subheader-search">
+                <md-input-container flex>
+                    <label>
+                        <md-icon md-font-icon="zmdi zmdi-search"></md-icon>
+                        Buscar por cedula
+                    </label>
+                    <input type="text" name="filtroEmpleado" ng-model="filtroEmpleado">
+                </md-input-container>
+            </div>
+            <md-divider></md-divider>
+            <section ng-if="vm.quejas.sin_responder.length > 0">
+                <md-subheader class="md-primary">{{vm.quejas.sin_responder.length}} si responder</md-subheader>
+                <md-divider></md-divider>
+                <md-list-item
+                    class="inbox-list__email inbox-list__email--animated md-2-line md-long-text inbox-list__email--unread"
+                    ng-repeat="q in vm.quejas.sin_responder | filter:{empleado:{cedula:filtroEmpleado}} | orderBy:'fecha'"
+                    ng-class="{ 'inbox-list__email--active': vm.selected === q.id }"
+                    ng-click="vm.open(q)">
+                    <md-icon md-font-icon="zmdi zmdi-account-circle mdc-text-red zmdi-hc-fw"></md-icon>
+                    <div class="md-list-item-text" layout="column">
+                        <h3>
+                            <span class="md-caption">{{ q.fecha | amDateFormat:'D [de] MMMM, h:mm a' }}</span>{{ q.empleado.nombre }}
+                        </h3>
+                        <p>{{ q.mensaje | cut:true:80:' ...'}}</p>
+                        <!--<span class="md-caption" am-time-ago="q.fecha"></span>-->
+                    </div>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </section>
+            <section ng-if="vm.quejas.respondidas.length > 0">
+                <md-subheader class="md-primary">Respondidas</md-subheader>
+                <md-divider></md-divider>
+                <md-list-item
+                    class="inbox-list__email inbox-list__email--animated md-3-line md-long-text"
+                    ng-repeat="q in vm.quejas.respondidas | orderBy:'fecha_respuesta':true | filter:{empleado:{cedula:filtroEmpleado}}"
+                    ng-class="{ 'inbox-list__email--active': vm.selected === q.id }"
+                    ng-click="vm.open(q)">
+                    <md-icon md-font-icon="zmdi zmdi-account-circle zmdi-hc-5x"></md-icon>
+                    <div class="md-list-item-text" layout="column">
+                        <h3>
+                            {{ q.empleado.nombre }}
+                            <span class="md-caption">{{ q.fecha | date:"d/MMM h:mm a" }}</span>
+                        </h3>
+                        <p>{{ q.mensaje | cut:true:80:' ...'}}</p>
+                        <p class="md-caption">Fecha de respuesta: {{ q.fecha_respuesta | date:"d/MMM h:mm a" }}</p>
+                    </div>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+            </section>
+        </md-list>
+    </md-content>
+
+    <div class="animate-wrapper" layout="column" layout-align="start center" flex layout-fill>
+        <div flex id="ui-admin-email" ui-view layout="column" layout-align="start center" layout-fill
+             class="overflow-auto">
+            <div flex class="inbox-no-email-selected" layout="column" layout-align="center">
+                <h2 hide-sm translate>No se ha seleccionado ningun mensaje</h2>
+            </div>
+        </div>
+    </div>
+</div>

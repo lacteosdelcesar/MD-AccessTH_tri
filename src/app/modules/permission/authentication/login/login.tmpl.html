@@ -1,0 +1,45 @@
+<div layout="row" flex layout-fill layout-align="center center">
+    <div flex="100" flex-lg="50" flex-md="70" flex-sm="100">
+        <md-card flex>
+            <md-toolbar class="padding-20">
+                <div flex layout="row" layout-align="center center">
+                    <img ng-src="assets/images/logo2.png" alt="{{vm.triSettings.name}}">
+                </div>
+                <div layout="row" layout-align="center center">
+                    <h1 class="md-headline">Iniciar Sesion</h1>
+                </div>
+            </md-toolbar>
+
+            <md-content class="md-padding">
+                <form name="login">
+                    <div ng-show="vm.logError">
+                        <p class="text-center" style="color: red">{{vm.mensajeError}}</p>
+                    </div>
+                    <md-input-container class="md-block">
+                        <label for="email">Nombre de Usuario</label>
+                        <input id="email" label="email" name="email" type="text" ng-model="vm.user.email"/>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label for="password">Contraseña</label>
+                        <input  id="password" label="password" name="password" type="password" ng-model="vm.user.password"/>
+                    </md-input-container>
+
+                    <!--div layout="row" layout-align="space-between center">
+                        <md-input-container>
+                            <md-checkbox ng-model="vm.user.rememberMe">
+                                <span>LOGIN.REMEMBER</span>
+                            </md-checkbox>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <md-button flex class="md-primary" href="#/forgot" translate="LOGIN.FORGOT" aria-label="{{'LOGIN.FORGOT' | translate}}"></md-button>
+                        </md-input-container>
+                    </div-->
+
+                    <md-button class="md-raised md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10"
+                               ng-click="vm.loginClick()" ng-disabled="vm.user.password == '' || vm.user.email == ''" aria-label="login">Login</md-button>
+                </form>
+            </md-content>
+        </md-card>
+    </div>
+</div>

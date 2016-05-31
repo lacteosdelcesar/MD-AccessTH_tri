@@ -1,0 +1,62 @@
+<div class=" padding-20 padding-top-100 overlay-gradient-30" layout="row" layout-align="start center">
+    <div class="margin-right-20">
+        <!img src="assets/images/avatars/avatar-5.png" alt="girl-avatar" class="make-round" width="100"/>
+    </div>
+    <div class="text-light">
+        <h3 class="font-weight-600 margin-bottom-0 text-light">Perfil de Usuario</h3>
+        <p class="font-weight-300 margin-top-0">Editar informacion de usuario</p>
+     </div>
+</div>
+
+<div layout="row" class="profile" layout-wrap>
+    <div flex="100" flex-gt-md="100">
+        <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="Cambiar Contraseña">
+                <md-content class="md-padding">
+                    <form name="password">
+                        <md-input-container class="md-block">
+                            <label for="old-password" translate>Contraseña Actual</label>
+                            <input id="old-password" label="old-password" name="old-password" type="password" ng-model="vm.user.current" required/>
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                            <label for="password" translate>Nueva Contraseña</label>
+                            <input id="password" label="password" name="password" type="password" ng-model="vm.user.password" tri-same-password="password.confirm" ng-minlength="8" required/>
+                            <ng-messages for="password.password.$error">
+                                <div ng-message when="required">
+                                    <span translate>Por favor ingrese una contraseña</span>
+                                </div>
+                                <div ng-message when="minlength">
+                                    <span translate>Su contraseña debe ser minimo de 8 caracteres</span>
+                                </div>
+                                <div ng-message when="samePassword">
+                                    <span translate>La contraseña de confirmacion no coincide</span>
+                                </div>
+                            </ng-messages>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label for="confirm" translate>Confirmar Contraseña</label>
+                            <input id="confirm" label="confirm" name="confirm" type="password" ng-model="vm.user.confirm" tri-same-password="password.password" ng-minlength="8" required/>
+                            <ng-messages for="password.confirm.$error">
+                                <div ng-message when="required">
+                                    <span translate>Por favor ingrese una contraseña</span>
+                                </div>
+                                <div ng-message when="minlength">
+                                    <span translate>Su contraseña debe ser minimo de 8 caracteres</span>
+                                </div>
+                                <div ng-message when="samePassword">
+                                    <span translate>La contraseña de confirmacion no coincide</span>
+                                </div>
+                            </ng-messages>
+                        </md-input-container>
+
+                        <md-button class="md-raised md-primary margin-left-0"
+                                   ng-disabled="password.$invalid" ng-click="vm.updatePaswword()">Cambiar</md-button>
+
+                    </form>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </div>
+
+</div>

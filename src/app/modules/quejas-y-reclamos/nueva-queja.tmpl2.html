@@ -1,0 +1,57 @@
+<div layout="column" layout-align="center center">
+    <div layout="row" layout-align="center center">
+        <p flex="90"  class="md-headline font-weight-300 text-center">
+            Apreciado Empleado, en este espacio usted podrá manifestar las novedades encontradas en su volante de pago,
+            por las que usted solicita revisión al área de Talento Humano para el pago de su próxima quincena.
+        </p>
+    </div>
+
+    <div flex layout="row" layout-align="center center" layout-fill>
+        <md-card class="margin-top-40 margin-bottom-20 md-whiteframe-z2" flex="70" flex-xs="100">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2 translate>Escriba en el siguiente formulario su solicitud</h2>
+                </div>
+            </md-toolbar>
+            <md-card-content>
+                <form name="githubForm">
+                    <md-input-container class="md-block">
+                        <div  class="md-body-1">Solicitud</div>
+                        <label>
+                            {{ vm.buzon.fecha  | amDateFormat:'dddd D [de] MMMM, h:mm a' }}
+                        </label>
+                        <textarea ng-model="vm.buzon.mensaje" ng-readonly="vm.buzon.id != -1"
+                                  md-maxlength="500" maxlength="500" rows="3"
+                                  placeholder="En este recuadro escriba su solicitud, nos comprometemos a atenderla lo mas pronto posible. Requerimos tenga un poco de paciencia">
+                        </textarea>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <div  class="md-body-1">Respuesta</div>
+                        <label>
+                            {{ vm.buzon.fecha_respuesta  | amDateFormat:'dddd D [de] MMMM, h:mm a' }}
+                        </label>
+                        <textarea rows="3" ng-model="vm.buzon.respuesta" readonly
+                                  placeholder="Cuandoo su solicitud halla sido respondida la podra ver aquí">
+                        </textarea>
+                    </md-input-container>
+                </form>
+
+                <div class="margin-top-40" layout="row" layout-align="end center">
+                    <div flex class="md-body-1 text-justify">
+                        <p ng-show="vm.buzon.id != -1" >
+                            Su solicitud ya ha sido enviada, si aun no ha recibido respuesta, por favor espere,
+                            ya que si envia una nueva, la actual no sera atendida
+                        </p>
+                    </div>
+                    <md-button ng-show="vm.buzon.id != -1" class="md-primary md-raised" ng-click="vm.nuevaPQR()">
+                        Nueva Solicitud
+                    </md-button>
+                    <md-button ng-show="vm.buzon.id == -1" class="md-primary md-raised" ng-disabled="githubForm.$invalid" ng-click="vm.enviarPQR()">
+                        Enviar
+                    </md-button>
+                </div>
+
+            </md-card-content>
+        </md-card>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+$sidenav-mobile-width: 260px;
+$sidenav-desktop-width: 300px;
+
+// import angular material scss
+@import "angular-material/angular-material.scss";
+
+body {
+  color: #212121;
+}
+
+// set template font family
+button, select, html, textarea, input {
+  font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
+}
+
+// import app scss
+//@import "scss/material-backgrounds";
+.mb-bg-16 {
+  background-image: url(../assets/images/backgrounds/material-backgrounds/mb-bg-16.jpg);
+}
+
+// Add your CSS here
+md-sidenav, md-content {
+  overflow-x: hidden;
+}
+
+/**
+ *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject
+ *  all your sass files automatically
+ */
+
+// injector
+// endinjector
