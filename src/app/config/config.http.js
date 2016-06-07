@@ -15,6 +15,7 @@
 
         $httpProvider.interceptors.push('jwtInterceptor');
 
+        /* @ngInject */
         function tokenGetter(config, UserService) {
             var jwt = UserService.getToken();
             if(jwt && config.url.indexOf(API) === 0){
