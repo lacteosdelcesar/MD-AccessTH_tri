@@ -32,7 +32,7 @@
                 } else if (rol == 'A_RRHH') {
                     $state.go('triangular.quejas-y-reclamos-listado-actuales');
                 } else if (rol == 'SUPERADMIN') {
-                    $state.go('triangular.superadmin.sync');
+                    $state.go('triangular.superadmin_sync');
                 }
             }
 

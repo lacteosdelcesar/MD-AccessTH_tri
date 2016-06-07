@@ -1,0 +1,41 @@
+<md-dialog aria-label="nuevo usuario" flex="40" flex-xs="100">
+    <md-toolbar md-theme="{{triSkin.elements.content}}">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span>Nuevo usuario</span>
+            </h2>
+        </div>
+    </md-toolbar>
+
+    <md-divider></md-divider>
+
+    <md-dialog-content class="md-dialog-content">
+        <form name="newUserForm" novalidate layout="column">
+            <md-input-container>
+                <label>Username</label>
+                <input ng-model="vm.user.username" class="dialog-close" required/>
+            </md-input-container>
+            <md-input-container>
+                <label>Distrito</label>
+                <input ng-model="vm.user.distrito_id" class="dialog-close"/>
+            </md-input-container>
+            <md-input-container>
+                <label>Area</label>
+                <input ng-model="vm.user.area_id" class="dialog-close"/>
+            </md-input-container>
+            <md-input-container>
+                <label>Rol</label>
+                <md-select ng-model="vm.user.rol_id" required>
+                    <md-option ng-repeat="rol in vm.roles" value="{{rol.id}}">
+                        {{rol.nombre}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button ng-click="vm.cancel()">Cancelar</md-button>
+        <md-button ng-click="vm.hide()" class="md-primary" ng-disabled="newUserForm.$invalid">Guardar</md-button>
+    </md-dialog-actions>
+</md-dialog>

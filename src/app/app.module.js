@@ -9,7 +9,9 @@
             'angularMoment', 'md.data.table', 'restangular',
             // 'seed-module',
             // uncomment above to activate the example seed module
+            'common',
             'app.permission',
+            'app.superadmin',
             'app.panel_empleados'
         ])
 

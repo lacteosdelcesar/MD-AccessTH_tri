@@ -23,6 +23,9 @@ button, select, html, textarea, input {
 md-sidenav, md-content {
   overflow-x: hidden;
 }
+.md-required:after {
+  content: ' ' !important;
+}
 
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject

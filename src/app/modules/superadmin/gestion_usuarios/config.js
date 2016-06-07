@@ -1,0 +1,45 @@
+(function() {
+    'use strict';
+
+    angular
+        .module('gestion_usuarios')
+        .config(moduleConfig);
+
+    /* @ngInject */
+    function moduleConfig($stateProvider, triMenuProvider) {
+
+        $stateProvider
+            .state('triangular.superadmin_sync', {
+                url: '/sync_up',
+                views: {
+                    '@triangular': {
+                        templateUrl: 'app/modules/superadmin/gestion_usuarios/sincronizar.tmpl.html',
+                        controller: 'SincronizarController',
+                        controllerAs: 'vm',
+                    },
+                    'belowContent@triangular': {
+                        templateUrl: 'app/modules/superadmin/gestion_usuarios/fab-button.tmpl.html',
+                        controller: 'FabController',
+                        controllerAs: 'vm'
+                    }
+                },
+                data: {
+                    permissions: {
+                        only: ['SUPERADMIN']
+                    },
+                    layout: {
+                        sideMenuSize: 'hidden'
+                    }
+                }
+            });
+
+        triMenuProvider.addMenu({
+            name: 'Gestionar Usuarios',
+            icon: '',
+            type: 'link',
+            priority: 1.0,
+            state: 'triangular.superadmin_sync',
+            permissions: 'gestion_usuarios'
+        });
+    }
+})();
