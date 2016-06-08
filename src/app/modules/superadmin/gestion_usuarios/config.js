@@ -35,11 +35,11 @@
 
         triMenuProvider.addMenu({
             name: 'Gestionar Usuarios',
-            icon: '',
+            icon: 'zmdi zmdi-accounts',
             type: 'link',
-            priority: 1.0,
+            priority: 10.0,
             state: 'triangular.superadmin_sync',
-            permissions: 'gestion_usuarios'
+            permission: 'gestion_usuarios'
         });
     }
 })();
