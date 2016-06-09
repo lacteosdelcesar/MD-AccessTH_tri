@@ -13,12 +13,12 @@
                 url: '/sync_up',
                 views: {
                     '@triangular': {
-                        templateUrl: 'app/modules/superadmin/gestion_usuarios/sincronizar.tmpl.html',
+                        templateUrl: 'app/modules/superadmin/gestion_usuarios/index_users.tmpl.html',
                         controller: 'SincronizarController',
                         controllerAs: 'vm',
                     },
                     'belowContent@triangular': {
-                        templateUrl: 'app/modules/superadmin/gestion_usuarios/fab-button.tmpl.html',
+                        templateUrl: 'app/modules/superadmin/gestion_usuarios/fab_controls/fab-button.tmpl.html',
                         controller: 'FabController',
                         controllerAs: 'vm'
                     }

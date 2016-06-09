@@ -8,9 +8,10 @@
 
     function permissionRun($rootScope, jwtHelper, $state, RoleStore, UserService) {
 
-        const roles = [
+        [
             ['SUPERADMIN', ['gestion_usuarios']],
-            ['A_RRHH', ['verQuejas']],
+            ['A_RRHH', ['verQuejas', 'reporteNovedades']],
+            ['ENC_AREA', ['reporteNovedades']],
             ['EMPL_ORD', ['panelEmpleados', 'certificados', 'newQueja', 'crtSinSlr', 'crtSlrBasico', 'crtSlrPromedio']],
             ['EMPL_TEMP', ['panelEmpleados', 'newQueja']],
             ['EMPL_INACTIVO', ['panelEmpleados', 'certificados', 'crtSinSlr']]

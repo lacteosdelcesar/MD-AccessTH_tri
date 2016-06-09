@@ -12,7 +12,8 @@
             'common',
             'app.permission',
             'app.superadmin',
-            'app.panel_empleados'
+            'app.panel_empleados',
+            'app.reporte_novedades'
         ])
 
         // set a constant for the API we are connecting to

@@ -9,11 +9,16 @@
     function FabController($rootScope) {
         var vm = this;
         vm.addTodo = addTodo;
+        vm.sync = sync;
 
         ////////////////
 
         function addTodo($event) {
             $rootScope.$broadcast('addUser', $event);
+        }
+
+        function sync($event) {
+            $rootScope.$broadcast('syncUsers', $event);
         }
     }
 })();

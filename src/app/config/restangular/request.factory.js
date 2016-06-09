@@ -17,7 +17,7 @@
         return service;
 
         function sendRequest(route, params) {
-            return Restangular.all(route).getList(params);
+            return Restangular.all(route).customGET('', params);
         }
     }
 })();

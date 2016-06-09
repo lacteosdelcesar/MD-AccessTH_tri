@@ -27,6 +27,7 @@
         vm.getUsers();
         getRoles();
         $scope.$on('addUser', addUser);
+        $scope.$on('syncUsers', syncUsers);
 
         ////////////////
 
@@ -54,7 +55,7 @@
 
         function addUser($event) {
             $mdDialog.show({
-                templateUrl: 'app/modules/superadmin/gestion_usuarios/add_user_dialog.tmpl.html',
+                templateUrl: 'app/modules/superadmin/gestion_usuarios/add_user/add_user_dialog.tmpl.html',
                 controller: 'DialogNewUserController',
                 controllerAs: 'vm',
                 targetEvent: $event,
@@ -76,7 +77,7 @@
             $mdDialog.show(
                 $mdDialog.confirm()
                     .title('Esta seguro de continuar?')
-                    .textContent('se cambiara la contraseña actual del usuario por la contraseña por defecto')
+                    .textContent('Se cambiara la contraseña actual del usuario por la contraseña por defecto')
                     .ariaLabel('reset-pasword')
                     .targetEvent($event)
                     .ok('Continuar')
@@ -91,6 +92,17 @@
                 });
             });
         };
+
+        function syncUsers($event) {
+            $mdDialog.show({
+                templateUrl: 'app/modules/superadmin/gestion_usuarios/sync/sync_dialog.tmpl.html',
+                controller: 'DialogSyncUserController',
+                controllerAs: 'vm',
+                targetEvent: $event
+            }).then(function() {
+                getUsers();
+            });
+        }
 
     }
 })();

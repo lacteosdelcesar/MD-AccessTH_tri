@@ -1,0 +1,34 @@
+<md-dialog aria-label="sync-users">
+    <md-toolbar md-theme="{{triSkin.elements.content}}">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span>Sincronización empleados</span>
+            </h2>
+        </div>
+    </md-toolbar>
+
+    <md-divider></md-divider>
+
+    <md-dialog-content class="md-dialog-content">
+        <p ng-hide="vm.success || vm.error">
+            Se crearan los usuarios para los nuevos empleados y se actualizaran los roles de los antiguos según su estado
+            <div layout="row" layout-align="center center" ng-show="vm.loading">
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+        </p>
+        <p ng-show="vm.error">
+            Ha ocurrido un erro inesperado en la sincornización
+        </p>
+        <p ng-show="vm.success">
+            Empleados agregados: {{vm.stats.empleados_agregados}}<br>
+            Empleados actualizados: {{vm.stats.empleados_actualizados}}<br>
+            Total registros: {{vm.stats.total_empleados}}<br>
+        </p>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button ng-click="vm.cancel()" ng-hide="vm.success">Cancelar</md-button>
+        <md-button ng-click="vm.sync()" ng-hide="vm.success || vm.error" class="md-primary">Continuar</md-button>
+        <md-button ng-click="vm.hide()" ng-show="vm.success || vm.error" class="md-primary">Aceptar</md-button>
+    </md-dialog-actions>
+</md-dialog>
