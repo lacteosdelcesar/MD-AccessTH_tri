@@ -44,6 +44,19 @@
                         only: ['EMPL_ORD', 'EMPL_INACTIVO']
                     }
                 }
+            })
+            .state('verificar-certificados', {
+                url: '/verificar_certificados',
+                views: {
+                    'root': {
+                        templateUrl: 'app/modules/certificados/veficacion/veficacion.tmpl.html',
+                        controller: 'VerificarCertificadoController',
+                        controllerAs: 'vm'
+                    }
+                },
+                data : {
+                    noRequiresLogin: true
+                }
             });
 
         triMenuProvider.addMenu({

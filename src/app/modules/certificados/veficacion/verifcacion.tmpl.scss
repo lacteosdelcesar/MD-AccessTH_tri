@@ -1,0 +1,64 @@
+.card-verifivacion-certificados md-content{
+  img {
+    width: 120px;
+  }
+  md-input-container{
+    margin-bottom: 0;
+    height: 35px !important;
+  }
+
+  md-progress-linear {
+    position: absolute;
+    bottom: 0px;
+    margin-left: -16px;
+  }
+}
+
+.certificado_content {
+  background-color: whitesmoke;
+  padding: 15px;
+  margin-top: 7px;
+  p{
+    text-align: center;
+  }
+  #content {
+    text-align: justify;
+  }
+}
+
+.certificado_error {
+  width: 90%;
+  background-color: rgba(255, 0, 2, 0.1);
+  padding: 15px;
+  margin-top: 7px;
+  p{
+    text-align: center;
+    color: red;
+    font-weight: bold!important;
+    font-size: 16px!important;
+    text-transform: uppercase;
+  }
+}
+
+.view-certificado {
+  width: 100%;
+  min-width: 100%;
+
+  md-content {
+    height: 100%;
+  }
+
+  md-toolbar{
+    img{
+      width: 35px;
+      vertical-align: middle;
+    }
+  }
+
+  #object_pdf{
+    object{
+      position: absolute;
+      height: calc(100% - 68px);
+    }
+  }
+}

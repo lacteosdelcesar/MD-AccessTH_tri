@@ -1,0 +1,82 @@
+<div class="full-image-background mb-bg-16" layout="row" layout-fill>
+    <tri-loader></tri-loader>
+    <div class="animate-wrapper" flex layout="row">
+        <div flex layout="column">
+            <div layout="row" flex layout-fill layout-align="center center">
+                <div flex="50" flex-lg="50" flex-md="70" flex-sm="100">
+                    <md-card flex class="card-verifivacion-certificados margin-0">
+                        <md-content class="md-padding" layout-align="center center" layout="column">
+                            <img ng-src="assets/images/logo2.png" alt="logo">
+                            <h1>Access-RH</h1>
+                            <p>
+                                Verificación de certificados
+                            </p>
+                            <form name="verificar" class="text-center">
+                                <md-input-container class="md-block text-left">
+                                    <label for="email">
+                                        <md-icon md-font-icon="zmdi zmdi-search-in-file"></md-icon>
+                                        Codigo
+                                    </label>
+                                    <input id="email" label="email" name="email" type="text" ng-model="vm.codigo" required/>
+                                </md-input-container>
+                                <md-button class="md-raised md-primary"
+                                           type="submit"
+                                           ng-disabled="vm.codigo == ''"
+                                           ng-click="vm.consultar()"
+                                           aria-label="login">
+                                    Consultar
+                                </md-button>
+                            </form>
+                            <md-progress-linear ng-show="vm.loading" md-mode="indeterminate"></md-progress-linear>
+                            <div class="certificado_content" ng-if="vm.content">
+                                <p>
+                                    EL DEPARTAMENTO DE TALENTO HUMANO DE LÁCTEOS DEL CESAR S.A.
+                                    <br>
+                                    CERTIFICA:
+                                </p>
+                                <p id="content">
+                                    {{vm.content}}
+                                </p>
+                                <p>
+                                    Documento creado el {{vm.certificado.fecha.date |  amDateFormat:'dddd D [de] MMMM'}}, <span am-time-ago="vm.certificado.fecha.date"></span>.
+                                    <br>
+                                    <md-button md-no-ink class="md-accent" ng-click="vm.downloadCertificado()">
+                                        <md-icon md-font-icon="zmdi zmdi-zmdi zmdi-download"></md-icon>
+                                        Descargar
+                                    </md-button>
+                                </p>
+                            </div>
+                            <div class="certificado_error" ng-if="vm.mensajError">
+                                <p class="text-center">
+                                    {{vm.mensajError}}
+                                </p>
+                            </div>
+                        </md-content>
+                    </md-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<md-sidenav class="md-sidenav-right view-certificado" md-component-id="view-certificado">
+    <md-content>
+        <md-toolbar class="md-theme-light padding-10" layout="row">
+            <md-button md-no-ink ng-click="vm.closeView()">
+                <md-icon md-font-icon="zmdi zmdi-arrow-back"></md-icon>
+                Regresar
+            </md-button>
+            <span flex></span>
+            <h2>
+                <span>Certificado</span>
+            </h2>
+            <span flex></span>
+            <h2>
+                <img ng-src="assets/images/logo2.png" alt="logo">
+                <span>Access-RH</span>
+            </h2>
+        </md-toolbar>
+        <div id="object_pdf">
+            <object ng-show="vm.pdf" data="{{vm.pdf}}" type="application/pdf" class="certificados_pdf_view"/>
+        </div>
+    </md-content>
+</md-sidenav>

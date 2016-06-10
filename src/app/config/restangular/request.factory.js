@@ -12,12 +12,17 @@
     /* @ngInject */
     function reposytory(Restangular) {
         var service = {
-            to: sendRequest
+            to: sendRequest,
+            base: Restangular
         }
         return service;
 
         function sendRequest(route, params) {
             return Restangular.all(route).customGET('', params);
+        }
+
+        function base() {
+            return Restangular;
         }
     }
 })();
