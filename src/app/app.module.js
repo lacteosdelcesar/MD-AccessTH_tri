@@ -14,8 +14,5 @@
             'app.superadmin',
             'app.panel_empleados',
             // 'app.reporte_novedades'
-        ])
-
-        // set a constant for the API we are connecting to
-        .constant('API', 'http://mydev/lmn-untitledApi-K/public/api/');
+        ]);
 })();
