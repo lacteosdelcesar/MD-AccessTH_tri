@@ -1,4 +1,4 @@
-<md-dialog aria-label="nuevo usuario" flex="40" flex-xs="100">
+<md-dialog aria-label="nuevo usuario" flex-xs="100">
     <md-toolbar md-theme="{{triSkin.elements.content}}">
         <div class="md-toolbar-tools">
             <h2>
@@ -9,19 +9,11 @@
 
     <md-divider></md-divider>
 
-    <md-dialog-content class="md-dialog-content">
+    <md-dialog-content class="md-dialog-content" layout="row">
         <form name="newUserForm" novalidate layout="column">
             <md-input-container>
                 <label>Username</label>
                 <input ng-model="vm.user.username" class="dialog-close" required/>
-            </md-input-container>
-            <md-input-container>
-                <label>Distrito</label>
-                <input ng-model="vm.user.distrito_id" class="dialog-close"/>
-            </md-input-container>
-            <md-input-container>
-                <label>Area</label>
-                <input ng-model="vm.user.area_id" class="dialog-close"/>
             </md-input-container>
             <md-input-container>
                 <label>Rol</label>
@@ -31,7 +23,42 @@
                     </md-option>
                 </md-select>
             </md-input-container>
+            <!--<md-input-container>-->
+                <!--<label>Distrito</label>-->
+                <!--<md-select ng-model="vm.user.distrito" required>-->
+                    <!--<md-option ng-repeat="distrito in vm.distritos" value="{{distrito.codigo}}">-->
+                        <!--{{distrito.descripcion}}-->
+                    <!--</md-option>-->
+                <!--</md-select>-->
+            <!--</md-input-container>-->
         </form>
+        <md-content ng-cloak layout="column" ng-show="vm.user.rol_id == 1"
+                    class="overflow-auto margin-left-10 md-dense">
+            <div>
+                <section ng-repeat="area in vm.areas">
+                    <md-list>
+                        <md-subheader class="md-primary subheader-areas">
+                            <md-list-item>
+                                <p> {{area.descripcion}} </p>
+                                <md-checkbox aria-label="Select All" class="md-secondary"
+                                             ng-checked="vm.total(area)"
+                                             md-indeterminate="vm.parcial(area)"
+                                             ng-click="vm.toggleAll(area)">
+                                </md-checkbox>
+                            </md-list-item>
+                        </md-subheader>
+                        <md-divider></md-divider>
+                        <md-list-item ng-repeat="subarea in area.sub_areas">
+                            <span>&nbsp;&nbsp;</span>
+                            <p> {{ subarea.descripcion }} </p>
+                            <md-checkbox class="md-secondary" ng-checked="vm.existe(subarea.codigo, area.codigo)"
+                                         ng-click="vm.toggle(subarea.codigo, area.codigo)" aria-label="Area">
+                            </md-checkbox>
+                        </md-list-item>
+                    </md-list>
+                </section>
+            </div>
+        </md-content>
     </md-dialog-content>
     <md-dialog-actions layout="row">
         <span flex></span>
