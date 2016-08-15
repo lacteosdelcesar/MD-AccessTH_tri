@@ -1,0 +1,18 @@
+.input-edit {
+  cursor: pointer;
+  align-items: center;
+}
+
+.table-button {
+  margin: 0 !important;
+  margin-left: 2.5px !important;
+  margin-right: 2.5px !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  width: 20px !important;
+  visibility: hidden;
+}
+
+.md-row:hover .table-button {
+  visibility: visible;
+}

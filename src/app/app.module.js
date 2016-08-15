@@ -13,6 +13,6 @@
             'app.permission',
             'app.superadmin',
             'app.panel_empleados',
-            // 'app.reporte_novedades'
+            'app.reporte_novedades'
         ]);
 })();

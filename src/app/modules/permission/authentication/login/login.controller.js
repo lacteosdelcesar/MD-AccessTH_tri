@@ -29,6 +29,8 @@
                 triLoaderService.setLoaderActive(false);
                 if (rol == 'EMPL_ORD' || rol == 'EMPL_INACTIVO' || rol == 'EMPL_TEMP') {
                     $state.go('triangular.solicitudes-empl-inicio');
+                } else if (rol == 'ENC_AREA') {
+                    $state.go('triangular.reporte_novedades');
                 } else if (rol == 'A_RRHH') {
                     $state.go('triangular.quejas-y-reclamos-listado-actuales');
                 } else if (rol == 'SUPERADMIN') {

@@ -12,13 +12,19 @@
         .state('triangular.reporte_novedades', {
             url: '/reporte_novedades',
             templateUrl: 'app/modules/reporte_novedades/reporte_novedades.tmpl.html',
-            // controller: 'SeedPageController',
-            // controllerAs: 'vm',
+            controller: 'ReporteNovedadesController',
+            controllerAs: 'vm',
             data: {
                 permissions: {
-                    only: 'reporteNovedades'
+                    only: ['ENC_AREA']
                 }
             }
+        })
+        .state('triangular.reporte_novedades.bonificaciones', {
+            url: '/bonificaciones',
+            templateUrl: 'app/modules/reporte_novedades/bonificaciones/bonificaciones.tmpl.html',
+            controller: 'BonificacionesController',
+            controllerAs: 'vm',
         });
 
         triMenuProvider.addMenu({

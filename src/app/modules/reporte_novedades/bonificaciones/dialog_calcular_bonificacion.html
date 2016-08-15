@@ -1,0 +1,66 @@
+<div flex="205"></div>
+<div flex="50" flex-md="80" flex-sm="100">
+    <md-dialog aria-label="calcular pro remplazo">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Calcular Bonificacion por Remplazo</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="close">
+                    <i class="mdi mdi-close" style="font-size: 20px"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content layout="column" class="padding-20">
+            <form name="formBonificacionRemplazo">
+                <div layout="row">
+                    <md-autocomplete
+                            md-selected-item="vm.selectedEmpleado"
+                            md-search-text="vm.searchText"
+                            md-search-text-change="vm.searchTextChange(vm.searchText)"
+                            md-selected-item-change="vm.selectedEmpleadoChange(empleado)"
+                            md-items="empleado in vm.querySearch(vm.searchText)"
+                            md-item-text="empleado.display"
+                            md-min-length="0"
+                            placeholder="Seleccione el empleado que fue remplazado"
+                            required flex="70">
+                        <md-item-template>
+                            <span md-highlight-text="vm.searchText">{{empleado.display}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            No existen coincidencia para "{{vm.searchText}}".
+                        </md-not-found>
+                    </md-autocomplete>
+                    <span flex="5"></span>
+                    <div flex="25" ng-show="vm.selectedEmpleado" style="padding-top: 12px">
+                        Salario
+                        <span style="color: #7d7d7d">
+                            {{vm.selectedEmpleado.salario}}
+                        </span>
+                    </div>
+                </div>
+                <div layout="row" ng-show="vm.selectedEmpleado">
+                    <md-input-container>
+                        Numero de dias
+                        <input required type="number" ng-model="vm.diasRemplazo" min="1"
+                               aria-label="dias_remplazo" integer required name="dias_remplazo"
+                               ng-change="vm.calcular_bonificacion(vm.selectedEmpleado.salario)">
+                    </md-input-container>
+                    <div flex="5"></div>
+                    <md-input-container>
+                        Bonificacion
+                        <input ng-model="vm.valor_bonificacion" disabled aria-label="selectec item salario">
+                    </md-input-container>
+                </div>
+            </form>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button class="md-primary md-raised" ng-click="vm.acept()"
+                       ng-show="!formBonificacionRemplazo.dias_remplazo.$error.required && !formBonificacionRemplazo.dias_remplazo.$error.min">
+                Aceptar
+            </md-button>
+            <md-button class="md-warn md-raised" ng-click="vm.cancel()">
+                cancelar
+            </md-button>
+        </md-dialog-actions>
+    </md-dialog>
+</div>
