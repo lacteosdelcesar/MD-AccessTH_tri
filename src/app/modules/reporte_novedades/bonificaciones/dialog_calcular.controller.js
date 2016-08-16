@@ -13,10 +13,8 @@
         vm.empleados = [];
         vm.selectedEmpleado = null;
 
-        vm.querySearch = querySearch;
         vm.calcular_bonificacion = calcular_bonificacion;
         vm.selectedItemChange = selectedItemChange;
-        vm.searchTextChange = searchTextChange;
         vm.cancel = cancel;
         vm.acept = acept;
 
@@ -40,23 +38,6 @@
 
         function calcular_bonificacion(salario){
             vm.valor_bonificacion = salario* vm.diasRemplazo/30;
-        }
-
-        function querySearch (query) {
-            var lowercaseQuery = angular.lowercase(query);
-
-            var filter = function (empleado) {
-                var c1 = (angular.lowercase(empleado.cedula).indexOf(lowercaseQuery) >= 0);
-                var c2 = (angular.lowercase(empleado.apellidos).indexOf(lowercaseQuery) >= 0);
-                var c3 = (angular.lowercase(empleado.nombre).indexOf(lowercaseQuery) >= 0);
-                return (c1 || c2 || c3);
-            };
-
-            return query ? vm.empleados.filter(filter) : vm.empleados;
-        }
-
-        function searchTextChange(text) {
-            //$log.info('Text changed to ' + text);
         }
 
         function selectedItemChange(item) {

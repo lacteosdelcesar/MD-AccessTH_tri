@@ -10,12 +10,15 @@
         .controller('BonificacionesController', Bonificaciones);
 
     /* @ngInject */
-    function Bonificaciones(Bonificaciones, $mdEditDialog, $mdDialog) {
+    function Bonificaciones(Bonificaciones, Empleados, $mdEditDialog, $mdDialog, Toast) {
         var vm = this;
-        vm.bonificaciones = []
-        
+        vm.bonificaciones = [];
+        vm.bonificacion = {};
+        vm.search_text = '';
+
         vm.edit = edit;
         vm.delete = delet;
+        vm.save = save;
         vm.showModalCalcular = showModalCalcular;
 
         ////////////////
@@ -25,9 +28,42 @@
         ////////////////
 
         function getBonificaciones() {
-            Bonificaciones.getList().then(function(bonificaciones){
+            vm.promise = Bonificaciones.getList();
+            vm.promise.then(function(bonificaciones){
                 vm.bonificaciones = bonificaciones;
+                getempleados();
             });
+        }
+
+        function getempleados() {
+            Empleados.getList().then(function (data) {
+                var bonificaciones = vm.bonificaciones.slice();
+                vm.empleados = data.filter(function (empleado) {
+                    var no_esta = bonificaciones.every(function (bonificacion, index, _bonificaciones) {
+                        if(empleado.cedula == bonificacion.empleado.cedula){
+                            _bonificaciones.splice(index, 1);
+                            return false;
+                        }
+                        return true;
+                    })
+                    if(no_esta) {
+                        empleado.display = angular.uppercase(empleado.apellidos+ ' ' + empleado.nombre)
+                        return empleado.plain();
+                    }
+                })
+            })
+        }
+
+        function save(bonificacion) {
+            bonificacion.por_remplazo || (bonificacion.por_remplazo = 0);
+            bonificacion.cedula_empleado = bonificacion.empleado.cedula;
+            delete bonificacion.empleado;
+            Bonificaciones.create(bonificacion).then(function () {
+                vm.bonificacion = {};
+                vm.search_text = '';
+                Toast.show('Bonificacion guardada');
+                getBonificaciones();
+            })
         }
         
         function edit(event, bonificacion) {
@@ -42,8 +78,11 @@
                         return $q.reject();
                     }
                     bonificacion.valor = input.$modelValue;
-                    bonificacion.put();
-                    console.log(bonificacion);
+                    bonificacion.por_remplazo = false;
+                    vm.promise = bonificacion.put();
+                    vm.promise.then(function () {
+                        Toast.show('Bonificacion guardada');
+                    })
                 }
             };
 
@@ -68,12 +107,16 @@
                 bonificacion.valor = parseFloat(detalles.valor_bonificacion.toFixed(2));
                 bonificacion.detalles_remplazo = detalles;
                 bonificacion.por_remplazo = true;
-                console.log(bonificacion);
-                bonificacion.put();
+                if(bonificacion.id){
+                    vm.promise = bonificacion.put();
+                    vm.promise.then(function () {
+                        Toast.show('Bonificacion guardada');
+                    })
+                }
             });
         };
 
-        function delet(event, bonificacion, index) {
+        function delet(event, bonificacion, index)  {
             var confirm = $mdDialog.confirm()
                 .title('Esta seguro que desea eliminar el registro?')
                 .ariaLabel('seguro?')
@@ -81,8 +124,10 @@
                 .ok('Si, eliminar')
                 .cancel('Cancelar');
             $mdDialog.show(confirm).then(function() {
-                bonificacion.remove().then(success, error);
+                vm.promise = bonificacion.remove();
+                vm.promise.then(success, error);
                 function success() {
+                    Toast.show('Registro Eliminado');
                     vm.bonificaciones.splice(index, 1);
                 }
                 function error() {

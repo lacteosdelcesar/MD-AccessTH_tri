@@ -13,7 +13,7 @@
             url: '/reporte_novedades',
             templateUrl: 'app/modules/reporte_novedades/reporte_novedades.tmpl.html',
             controller: 'ReporteNovedadesController',
-            controllerAs: 'vm',
+            controllerAs: 'vmp',
             data: {
                 permissions: {
                     only: ['ENC_AREA']

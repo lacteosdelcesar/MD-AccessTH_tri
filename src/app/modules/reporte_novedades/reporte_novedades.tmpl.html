@@ -1,34 +1,33 @@
 <md-card>
-    <md-card-content>
-        <md-toolbar ng-hide="vm.filter" class="md-table-toolbar md-default">
-            <div class="md-toolbar-tools">
-                <h2 class="md-title">Empleados</h2>
-                <div flex></div>
-                <md-button class="md-icon-button" ng-click="vm.filter = true" aria-label="show_filter">
-                    <md-icon md-font-icon="zmdi zmdi-filter-list"></md-icon>
-                </md-button>
-            </div>
-        </md-toolbar>
-
-        <md-toolbar ng-show="vm.filter" class="md-table-toolbar md-default">
+    <md-toolbar class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <md-tabs md-border-bottom md-selected="selectedTab" flex>
+                <md-tab label="Bonificaciones"></md-tab>
+                <md-tab label="Viajes"></md-tab>
+                <md-tab label="Descuentos"></md-tab>
+                <md-tab label="Incapacidades"></md-tab>
+                <md-tab label="Permisos"></md-tab>
+            </md-tabs>
+            <md-button class="md-icon-button" ng-click="vmp.filter = true" ng-show="!vmp.filter" aria-label="show_filter">
+                <md-icon md-font-icon="zmdi zmdi-filter-list"></md-icon>
+                <md-tooltip>
+                    Buscar empleado
+                </md-tooltip>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-card-content class="padding-top-0">
+        <md-toolbar ng-show="vmp.filter" class="md-table-toolbar md-default">
             <div class="md-toolbar-tools">
                 <md-icon md-font-icon="zmdi zmdi-search"></md-icon>
                 <form flex>
-                    <input type="text" ng-model="vm.query.search" placeholder="Busrcar nombre de Usuario">
+                    <input type="text" ng-model="vmp.query.search" placeholder="Buscar empleado">
                 </form>
-                <md-button class="md-icon-button" ng-click="vm.removeFilter()" aria-label="remove_filter">
+                <md-button class="md-icon-button" ng-click="vmp.removeFilter()" aria-label="remove_filter">
                     <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
                 </md-button>
             </div>
         </md-toolbar>
-
-        <md-tabs md-border-bottom md-selected="selectedTab">
-            <md-tab label="Bonificaciones"></md-tab>
-            <md-tab label="Viajes"></md-tab>
-            <md-tab label="Descuentos"></md-tab>
-            <md-tab label="Incapacidades"></md-tab>
-            <md-tab label="Permisos"></md-tab>
-        </md-tabs>
 
         <div id="novedades-table" ui-view flex></div>
     </md-card-content>

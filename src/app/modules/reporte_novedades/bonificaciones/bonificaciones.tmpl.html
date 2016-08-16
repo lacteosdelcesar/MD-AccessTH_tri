@@ -1,23 +1,56 @@
-<md-card class="md-primary padding-10" style="background-color: rgb(14,81,160)">
-    <md-auto-complete-empleados></md-auto-complete-empleados>
+<md-card class="md-primary padding-10" layout="row" layout-xs="column" id="card-nueva-bonificacion" ng-hide="vmp.filter">
+    <span id="label">
+        Nueva bonificacion
+    </span>
+    <md-auto-complete-empleados
+            empleados="vm.empleados"
+            selected-empleado="vm.bonificacion.empleado"
+            search-text="vm.search_text"
+            placeholder="Empleado"
+            flex="30" flex-xs="100">
+    </md-auto-complete-empleados>
+    <md-card layout="row" class="inline-input">
+        <span>Valor ($)</span>
+        <md-input-container md-no-float>
+            <input type="number"
+                   ng-model="vm.bonificacion.valor"
+                   ng-disabled="!vm.bonificacion.empleado"
+                   ng-enter="vm.save(vm.bonificacion)"
+                   placeholder="0">
+        </md-input-container>
+        <md-button class="md-icon-button md-primary" aria-label="cancel"
+                   ng-click="vm.showModalCalcular($event, vm.bonificacion)"
+                   ng-disabled="!vm.bonificacion.empleado">
+            <md-icon md-font-icon="zmdi zmdi-accounts-alt"></md-icon>
+            <md-tooltip>
+                Calcular Por remplazo
+            </md-tooltip>
+        </md-button>
+    </md-card>
+    <md-button class="md-raised md-accent"
+               ng-disabled="!vm.bonificacion.valor"
+               ng-click="vm.save(vm.bonificacion)"
+               id="btn-guardar-bonificacion">
+        Guardar
+    </md-button>
 </md-card>
 <md-table-container>
     <table md-table md-progress="vm.promise">
-        <thead md-head md-order="vm.query.order">
+        <thead md-head md-order="vmp.query.order">
         <tr md-row>
             <th md-column>Cedula</th>
-            <th md-column md-order-by="empleado.apellido">Nombre</th>
+            <th md-column md-order-by="empleado.apellidos">Nombre</th>
             <th md-column numeric md-order-by="empleado.salario">Salario ($)</th>
             <th md-column numeric md-order-by="valor">Bonificacion ($)</th>
             <!--<th md-column></th>-->
         </tr>
         </thead>
-        <tbody md-body>
+        <tbody md-body class="overflow-hidden">
         <tr md-row
-            ng-repeat="bonificacion in vm.bonificaciones | filter:vm.query.filterUsername | orderBy: vm.query.order | limitTo: vm.query.limit: (vm.query.page - 1) * vm.query.limit"
+            ng-repeat="bonificacion in vm.bonificaciones | filter:vmp.query.filter | orderBy: vmp.query.order"
             ng-mouseover="showClose = true">
             <td md-cell>{{::bonificacion.empleado.cedula}}</td>
-            <td md-cell>{{::bonificacion.empleado.apellido}} {{::bonificacion.empleado.nombre}}</td>
+            <td md-cell>{{::bonificacion.empleado.apellidos}} {{::bonificacion.empleado.nombre}}</td>
             <td md-cell>{{::bonificacion.empleado.salario}}</td>
             <td md-cell>
                 <div class="td-bonificaciones padding-0" layout="row">
@@ -50,11 +83,3 @@
         </tbody>
     </table>
 </md-table-container>
-<md-table-pagination md-limit="vm.query.limit"
-                     md-limit-options="vm.query.limitOptions"
-                     md-page-select
-                     md-boundary-links
-                     md-page="vm.query.page"
-                     md-total="{{vm.bonificacions.length}}"
-                     md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}" >
-</md-table-pagination>
