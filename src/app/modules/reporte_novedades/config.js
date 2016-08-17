@@ -25,6 +25,12 @@
             templateUrl: 'app/modules/reporte_novedades/bonificaciones/bonificaciones.tmpl.html',
             controller: 'BonificacionesController',
             controllerAs: 'vm',
+        })
+        .state('triangular.reporte_novedades.viajes', {
+            url: '/vajes',
+            templateUrl: 'app/modules/reporte_novedades/viajes/viajes.tmpl.html',
+            controller: 'ViajesController',
+            controllerAs: 'vm',
         });
 
         triMenuProvider.addMenu({

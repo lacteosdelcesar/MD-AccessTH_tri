@@ -25,6 +25,7 @@
                     $state.go("triangular.reporte_novedades.bonificaciones");
                     break;
                 case 1:
+                    $state.go("triangular.reporte_novedades.viajes");
                     break;
                 case 2:
                     break;
@@ -34,6 +35,21 @@
                     break;
             }
         });
+
+        switch ($state.current.name) {
+            case "triangular.reporte_novedades.bonificaciones":
+                $scope.selectedTab = 0;
+                break;
+            case "triangular.reporte_novedades.viajes":
+                $scope.selectedTab = 1;
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+        }
 
         ////////////////
 
