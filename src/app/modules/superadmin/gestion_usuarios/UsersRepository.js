@@ -16,11 +16,7 @@
         }
 
         AbstractRepository.extend(UsersRepository);
-        
-        UsersRepository.prototype.resetPassword = function () {
-            return this.restangular.all(this.route).post(newResource);
-        }
-        
+
         return new UsersRepository();
     }
 })();

@@ -6,7 +6,7 @@
         .controller('ToolbarController', DefaultToolbarController);
 
     /* @ngInject */
-    function DefaultToolbarController($mdMedia, $mdUtil, $mdSidenav, $document, triBreadcrumbsService, triLayout, UserService, $state) {
+    function DefaultToolbarController($mdMedia, $mdUtil, $mdSidenav, $document, triBreadcrumbsService, triLayout, authService, $state) {
         var vm = this;
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
         vm.openSideNav = openSideNav;
@@ -14,7 +14,7 @@
         vm.isFullScreen = false;
         vm.fullScreenIcon = 'zmdi zmdi-fullscreen';
         vm.toggleFullScreen = toggleFullScreen;
-        vm.currentUser = UserService.currentUser();
+        vm.currentUser = authService.getCurrentUser();
         vm.myDate = new Date();
         vm.logout = logout;
         vm.changePass = changePass;
@@ -70,11 +70,11 @@
         }
 
         function logout() {
-            UserService.logout();
+            authService.logout();
         }
 
         function changePass() {
-            $state.go('triangular.profile');
+            $state.go('profile');
         }
     }
 })();

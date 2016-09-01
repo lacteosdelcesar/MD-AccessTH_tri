@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.reporte_novedades')
+        .module('reporte_novedades')
         .controller('ReporteNovedadesController', ReporteNovedadesController);
 
     /* @ngInject */
@@ -19,13 +19,13 @@
 
         ////////////////
 
-        $scope.$watch('selectedTab', function(current, old) {
+        $scope.$watch('vm.selectedTab', function(current) {
             switch (current) {
                 case 0:
-                    $state.go("triangular.reporte_novedades.bonificaciones");
+                    $state.go('triangular.reporte_novedades.bonificaciones');
                     break;
                 case 1:
-                    $state.go("triangular.reporte_novedades.viajes");
+                    $state.go('triangular.reporte_novedades.viajes');
                     break;
                 case 2:
                     break;
@@ -37,11 +37,11 @@
         });
 
         switch ($state.current.name) {
-            case "triangular.reporte_novedades.bonificaciones":
-                $scope.selectedTab = 0;
+            case 'triangular.reporte_novedades.bonificaciones':
+                vm.selectedTab = 0;
                 break;
-            case "triangular.reporte_novedades.viajes":
-                $scope.selectedTab = 1;
+            case 'triangular.reporte_novedades.viajes':
+                vm.selectedTab = 1;
                 break;
             case 2:
                 break;

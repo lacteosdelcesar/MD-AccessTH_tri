@@ -1,8 +1,0 @@
-(function() {
-    'use strict';
-
-    angular
-        .module('app.permission.authentication', [
-            'angular-jwt'
-        ]);
-})();

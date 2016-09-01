@@ -10,6 +10,8 @@ var browserSync = require('browser-sync');
 
 var middleware = require('./proxy');
 
+var modRewrite  = require('connect-modrewrite');
+
 function browserSyncInit(baseDir, files, browser) {
   browser = browser === undefined ? 'default' : browser;
 
@@ -24,7 +26,12 @@ function browserSyncInit(baseDir, files, browser) {
     startPath: '/',
     server: {
       baseDir: baseDir,
-      middleware: middleware,
+      middleware: [
+        middleware,
+        modRewrite([
+          '!\\.\\w+$ / [L]'
+        ])
+      ],
       routes: routes
     },
     port: 3000,
@@ -48,12 +55,4 @@ gulp.task('serve', ['watch'], function () {
 
 gulp.task('serve:dist', ['buildapp'], function () {
   browserSyncInit(paths.dist);
-});
-
-gulp.task('serve:e2e', ['inject'], function () {
-  browserSyncInit([paths.tmp + '/serve', paths.src], null, []);
-});
-
-gulp.task('serve:e2e-dist', ['buildapp'], function () {
-  browserSyncInit(paths.dist, null, []);
 });

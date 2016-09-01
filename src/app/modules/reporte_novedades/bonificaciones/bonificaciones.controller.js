@@ -6,7 +6,7 @@
     'use strict';
 
     angular
-        .module('app.reporte_novedades')
+        .module('reporte_novedades')
         .controller('BonificacionesController', Bonificaciones);
 
     /* @ngInject */
@@ -45,13 +45,13 @@
                             return false;
                         }
                         return true;
-                    })
+                    });
                     if(no_esta) {
-                        empleado.display = angular.uppercase(empleado.apellidos+ ' ' + empleado.nombre)
+                        empleado.display = angular.uppercase(empleado.apellidos+ ' ' + empleado.nombre);
                         return empleado.plain();
                     }
-                })
-            })
+                });
+            });
         }
 
         function save(bonificacion) {
@@ -61,11 +61,11 @@
             Bonificaciones.create(bonificacion).then(function () {
                 vm.bonificacion = {};
                 vm.search_text = '';
-                Toast.show('Bonificacion guardada');
+                Toast('Bonificacion guardada');
                 getBonificaciones();
-            })
+            });
         }
-        
+
         function edit(event, bonificacion) {
             var editDialog = {
                 modelValue: bonificacion.valor,
@@ -75,14 +75,13 @@
                 save: function (input) {
                     if(input.$modelValue === 0) {
                         input.$invalid = true;
-                        return $q.reject();
                     }
                     bonificacion.valor = input.$modelValue;
                     bonificacion.por_remplazo = false;
                     vm.promise = bonificacion.put();
                     vm.promise.then(function () {
-                        Toast.show('Bonificacion guardada');
-                    })
+                        Toast('Bonificacion guardada');
+                    });
                 }
             };
 
@@ -97,7 +96,7 @@
         function showModalCalcular(event, bonificacion) {
             $mdDialog.show({
                 templateUrl: 'app/modules/reporte_novedades/bonificaciones/dialog_calcular_bonificacion.html',
-                controller: 'BonificacioRemaplazoDialog',
+                controller: 'BonificacionDialogController',
                 controllerAs: 'vm',
                 targetEvent: event,
                 locals: {
@@ -110,11 +109,11 @@
                 if(bonificacion.id){
                     vm.promise = bonificacion.put();
                     vm.promise.then(function () {
-                        Toast.show('Bonificacion guardada');
-                    })
+                        Toast('Bonificacion guardada');
+                    });
                 }
             });
-        };
+        }
 
         function delet(event, bonificacion, index)  {
             var confirm = $mdDialog.confirm()
@@ -127,7 +126,7 @@
                 vm.promise = bonificacion.remove();
                 vm.promise.then(success, error);
                 function success() {
-                    Toast.show('Registro Eliminado');
+                    Toast('Registro Eliminado');
                     vm.bonificaciones.splice(index, 1);
                 }
                 function error() {

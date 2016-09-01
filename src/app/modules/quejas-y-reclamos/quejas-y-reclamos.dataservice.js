@@ -7,12 +7,7 @@
 
     /* @ngInject */
     function dataservice($http, API) {
-        var quejas = {
-            respondidas: [],
-            sin_responder: []
-        };
-        var selectedQueja = {};
-        return {
+        var service = {
             getByEmpleado: getByEmpleado,
             getAll: getAll,
             getById: getById,
@@ -20,6 +15,7 @@
             delete: delet,
             postR: postR
         };
+        return service;
 
         function getByEmpleado(ide) {
             var uri = API+'empleados/' + ide + '/solicitudes_pqr';
@@ -31,7 +27,7 @@
                 return response.data.data;
             }
 
-            function failure(error) {
+            function failure() {
                 //logger.error('XHR Failed for getAvengers.' + error.data);
             }
         }
@@ -46,7 +42,7 @@
                 return response.data.data;
             }
 
-            function failure(error) {
+            function failure() {
                 //logger.error('XHR Failed for getAvengers.' + error.data);
             }
         }
@@ -59,6 +55,7 @@
 
             function succes(response) {
                 var data = response.data.data;
+                var quejas = { respondidas: [], sin_responder: [] };
                 for (var i=0; i<data.length; i++) {
                     data[i].fecha = new Date(data[i].fecha.date);
                     data[i].index = i;
@@ -72,7 +69,7 @@
                 return quejas;
             }
 
-            function failure(error) {
+            function failure() {
                 //logger.error('XHR Failed for getAvengers.' + error.data);
             }
         }
@@ -86,7 +83,7 @@
                 return response.data;
             }
 
-            function failure(error) {
+            function failure() {
                 //logger.error('XHR Failed for getAvengers.' + error.data);
             }
         }
@@ -100,7 +97,7 @@
                 return response.data;
             }
 
-            function failure(error) {
+            function failure() {
                 //logger.error('XHR Failed for getAvengers.' + error.data);
             }
         }
@@ -114,7 +111,7 @@
                 return response.data;
             }
 
-            function failure(error) {
+            function failure() {
                 //logger.error('XHR Failed for getAvengers.' + error.data);
             }
         }

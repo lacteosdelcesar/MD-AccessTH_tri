@@ -17,7 +17,6 @@
             limitOptions: [10, 20, 50, 'Todo']
         };
         vm.filter = false;
-        vm.promise;
         vm.getUsers = getUsers;
         vm.removeFilter = removeFilter;
         vm.resetPasword = resetPasword;
@@ -40,12 +39,12 @@
         function getRoles() {
             OneRequest.to('users/roles').then(function (roles) {
                 vm.roles = roles;
-            })
+            });
         }
 
         function filterUsername(user) {
-            if(user.username.search(vm.query.search) === 0) return true;
-            return false
+            return user.username.search(vm.query.search) === 0;
+
         }
 
         function removeFilter() {
@@ -65,10 +64,9 @@
             }).then(function(user) {
                 Users.create(user).then(function (user) {
                     vm.users.push(user);
-                    Toast.show('usuario registrado');
-                }, function (err) {
-                    console.log(err)
-                    Toast.show('ha ocurrido un error');
+                    Toast('usuario registrado');
+                }, function () {
+                    Toast('ha ocurrido un error');
                 });
             });
         }
@@ -85,13 +83,12 @@
             ).then(function() {
                 vm.promise = user.customPUT(null, 'reset_password');
                 vm.promise.then(function(){
-                    Toast.show('contraseña de usuario cambiada');
-                }, function(err) {
-                    console.log(err)
-                    Toast.show('ha ocurrido un error');
+                    Toast('contraseña de usuario cambiada');
+                }, function() {
+                    Toast('ha ocurrido un error');
                 });
             });
-        };
+        }
 
         function syncUsers($event) {
             $mdDialog.show({

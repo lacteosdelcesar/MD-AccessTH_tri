@@ -30,11 +30,10 @@
                 vm.stats = data.plain();
                 vm.loading = false;
                 vm.success = true;
-                Toast.show('Sincronización correcta');
-            }, function(err) {
+                Toast('Sincronización correcta');
+            }, function() {
                 vm.error = true;
-                console.log(err)
-                Toast.show('Ha ocurrido un error');
+                Toast('Ha ocurrido un error');
             });
         }
     }

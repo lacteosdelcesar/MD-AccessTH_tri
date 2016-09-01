@@ -6,12 +6,7 @@
         .run(runFunction);
 
     /* @ngInject */
-    function runFunction($rootScope, $state, amMoment) {
-
-        // default redirect if access is denied
-        function redirectError() {
-            $state.go('500');
-        }
+    function runFunction($rootScope, $state) {
 
         // watches
 
@@ -23,6 +18,9 @@
             errorHandle();
         });
 
-        amMoment.changeLocale('es');
+        // default redirect if access is denied
+        function redirectError() {
+            $state.go('500');
+        }
     }
 })();

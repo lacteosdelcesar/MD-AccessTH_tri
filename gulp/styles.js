@@ -7,7 +7,7 @@ var paths = gulp.paths;
 var $ = require('gulp-load-plugins')();
 
 gulp.task('triangular.scss', function () {
-  return gulp.src(paths.src + '/app/triangular/**/*.scss')
+  return gulp.src(paths.src + '/app/core/triangular/**/*.scss')
     .pipe($.concat('triangular.scss'))
     .pipe(gulp.dest(paths.tmp + '/serve/app/'));
 });

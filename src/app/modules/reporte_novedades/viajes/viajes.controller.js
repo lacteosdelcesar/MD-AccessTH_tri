@@ -6,7 +6,7 @@
     'use strict';
 
     angular
-        .module('app.reporte_novedades')
+        .module('reporte_novedades')
         .controller('ViajesController', Viajes);
 
     /* @ngInject */
@@ -44,13 +44,13 @@
                             return false;
                         }
                         return true;
-                    })
+                    });
                     if(no_esta) {
-                        empleado.display = angular.uppercase(empleado.apellidos+ ' ' + empleado.nombre)
+                        empleado.display = angular.uppercase(empleado.apellidos+ ' ' + empleado.nombre);
                         return empleado.plain();
                     }
-                })
-            })
+                });
+            });
         }
 
         function save(bonificacion) {
@@ -59,11 +59,11 @@
             Viajes.create(bonificacion).then(function () {
                 vm.bonificacion = {};
                 vm.search_text = '';
-                Toast.show('Vieaje guardado');
+                Toast('Vieaje guardado');
                 getBonificaciones();
-            })
+            });
         }
-        
+
         function edit(event, bonificacion) {
             var editDialog = {
                 modelValue: bonificacion.valor,
@@ -73,13 +73,12 @@
                 save: function (input) {
                     if(input.$modelValue === 0) {
                         input.$invalid = true;
-                        return $q.reject();
                     }
                     bonificacion.valor = input.$modelValue;
                     vm.promise = bonificacion.save();
                     vm.promise.then(function () {
-                        Toast.show('Vieaje guardado');
-                    })
+                        Toast('Vieaje guardado');
+                    });
                 }
             };
 
@@ -102,7 +101,7 @@
                 vm.promise = bonificacion.remove();
                 vm.promise.then(success, error);
                 function success() {
-                    Toast.show('Registro Eliminado');
+                    Toast('Registro Eliminado');
                     vm.bonificaciones.splice(index, 1);
                 }
                 function error() {

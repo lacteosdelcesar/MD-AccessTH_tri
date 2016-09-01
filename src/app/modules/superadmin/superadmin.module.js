@@ -2,7 +2,5 @@
     'use strict';
 
     angular
-        .module('app.superadmin', [
-            'gestion_usuarios'
-        ]);
+        .module('superadmin', ['gestion_usuarios']);
 })();

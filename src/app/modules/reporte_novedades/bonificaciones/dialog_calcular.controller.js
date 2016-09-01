@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        .module('app.reporte_novedades')
-        .controller('BonificacioRemaplazoDialog', controller);
+        .module('reporte_novedades')
+        .controller('BonificacionDialogController', controller);
 
     /* @ngInject */
     function controller(bonificacion, $mdDialog, Empleados) {
@@ -26,7 +26,7 @@
 
         function cancel() {
             $mdDialog.cancel();
-        };
+        }
 
         function acept(){
             $mdDialog.hide({
@@ -51,11 +51,11 @@
             Empleados.getList({include: 'salario'}).then(function (data) {
                 vm.empleados = data.filter(function (empleado) {
                     if(empleado.cedula != bonificacion.empleado.cedula) {
-                        empleado.display = angular.uppercase(empleado.apellidos+ ' ' + empleado.nombre)
+                        empleado.display = angular.uppercase(empleado.apellidos+ ' ' + empleado.nombre);
                         return empleado.plain();
                     }
-                })
-            })
+                });
+            });
         }
     }
 })();

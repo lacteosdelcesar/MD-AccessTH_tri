@@ -6,7 +6,7 @@
         .controller('VerificarCertificadoController', VerificarCertificadoController);
 
     /* @ngInject */
-    function VerificarCertificadoController(OneRequest, $mdSidenav, $sce) {
+    function VerificarCertificadoController(OneRequest, $mdSidenav, $sce, $window) {
         var vm = this;
         vm.pdf = null;
         vm.codigo = '';
@@ -24,7 +24,6 @@
                 vm.loading = false;
                 vm.content = data.content;
                 vm.certificado = data.certificado;
-                console.log(vm.certificado);
                 vm.mensajError = undefined;
             }
             function error(err) {
@@ -45,7 +44,7 @@
                     .withHttpConfig({responseType: 'arraybuffer'}).get()
                     .then(function (data) {
                         var file = new Blob([data], {type: 'application/pdf'});
-                        var fileURL = window.URL.createObjectURL(file);
+                        var fileURL = $window.URL.createObjectURL(file);
                         vm.pdf = $sce.trustAsResourceUrl(fileURL);
                         vm.loading = false;
                         $mdSidenav('view-certificado').toggle();

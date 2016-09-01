@@ -3,16 +3,24 @@
 
     angular
         .module('app', [
-            'ui.router', 'permission',
+            'ui.router',
             'triangular',
-            'ngAnimate', 'ngCookies', 'ngSanitize', 'ngMessages', 'ngMaterial',
-            'angularMoment', 'md.data.table', 'restangular',
-            // 'seed-module',
-            // uncomment above to activate the example seed module
-            'common',
-            'app.permission',
-            'app.superadmin',
-            'app.panel_empleados',
-            'app.reporte_novedades'
+            'ngAnimate', 'ngCookies', 'ngMessages', 'ngMaterial',
+            'angularMoment', 'md.data.table', 'restangular', 'angular-jwt',
+            'permission', 'permission.ui',
+
+            'seed-module',
+            'app.error_pages',
+            'app.auth',
+
+            'superadmin',
+
+            'home_empleados',
+            'certificados',
+            'quejas-y-reclamos',
+
+            'empleados',
+            'horas_extras',
+            'reporte_novedades'
         ]);
 })();
