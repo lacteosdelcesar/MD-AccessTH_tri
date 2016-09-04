@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('app.auth', [])
+        .module('app.auth', ['angular-jwt'])
         .config(config);
 
     /** @ngInject */

@@ -10,14 +10,7 @@
         .config(config);
 
     /** @ngInject */
-    function config($httpProvider, jwtOptionsProvider, RestangularProvider, DOMAIN_API, API) {
-
-        jwtOptionsProvider.config({
-            whiteListedDomains: [DOMAIN_API],
-            tokenGetter: tokenGetter
-        });
-
-        $httpProvider.interceptors.push('jwtInterceptor');
+    function config(RestangularProvider, API) {
 
         RestangularProvider.setBaseUrl(API);
 
@@ -35,22 +28,6 @@
             }
 
             return response;
-        }
-
-        /** @ngInject */
-        function tokenGetter(options, authService, API) {
-            var jwt = authService.getToken();
-            if (jwt && options.url.indexOf(API) === 0) {
-                if (!authService.checkSession()) {
-                    authService.refreshToken().then(function (jwt) {
-                        return jwt;
-                    }, function () {
-                        return null;
-                    });
-                } else {
-                    return jwt;
-                }
-            }
         }
     }
 })();

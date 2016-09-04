@@ -10,7 +10,7 @@
         .run(permissionRun);
 
     /* @ngInject */
-    function permissionRun($rootScope, $state, PermRoleStore, authService, $log) {
+    function permissionRun($rootScope, $state, PermRoleStore, authService) {
         // si tengo el token, recargo el usuario
         authService.getCurrentUser();
 
@@ -43,7 +43,6 @@
         }
 
         function checkAuthenticated(event, to) {
-            $log.info(to);
             if (to.data && to.data.permissions) {
                 if (!authService.checkSession()) {
                     event.preventDefault();

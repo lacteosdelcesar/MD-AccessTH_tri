@@ -11,16 +11,13 @@
         // watches
 
         // redirect all errors to permissions to 500
-        var errorHandle = $rootScope.$on('$stateChangeError', redirectError);
+        var errorHandle = $rootScope.$on('$stateChangeError', function () {
+            $state.go('500');
+        });
 
         // remove watch on destroy
         $rootScope.$on('$destroy', function() {
             errorHandle();
         });
-
-        // default redirect if access is denied
-        function redirectError() {
-            $state.go('500');
-        }
     }
 })();

@@ -6,7 +6,7 @@
             'ui.router',
             'triangular',
             'ngAnimate', 'ngCookies', 'ngMessages', 'ngMaterial',
-            'angularMoment', 'md.data.table', 'restangular', 'angular-jwt',
+            'angularMoment', 'md.data.table', 'restangular',
             'permission', 'permission.ui',
 
             'seed-module',
