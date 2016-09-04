@@ -35,7 +35,7 @@
 
         triMenuProvider.addMenu({
             name: 'Reportar Novedades',
-            icon: 'fa fa-tree',
+            icon: 'fa fa-calendar-check-o',
             type: 'link',
             priority: 2.2,
             state: 'triangular.reporte_novedades'

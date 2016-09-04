@@ -40,8 +40,8 @@
         <tr md-row>
             <th md-column>Cedula</th>
             <th md-column md-order-by="empleado.apellidos">Nombre</th>
-            <th md-column numeric md-order-by="empleado.salario">Salario ($)</th>
-            <th md-column numeric md-order-by="valor">Bonificacion ($)</th>
+            <th md-column md-numeric md-order-by="empleado.salario">Salario</th>
+            <th md-column md-order-by="valor">Bonificacion</th>
             <!--<th md-column></th>-->
         </tr>
         </thead>
@@ -51,11 +51,11 @@
             ng-mouseover="showClose = true">
             <td md-cell>{{::bonificacion.empleado.cedula}}</td>
             <td md-cell>{{::bonificacion.empleado.apellidos}} {{::bonificacion.empleado.nombre}}</td>
-            <td md-cell>{{::bonificacion.empleado.salario}}</td>
+            <td md-cell>{{::bonificacion.empleado.salario | currency:"$":0}}</td>
             <td md-cell>
                 <div class="td-bonificaciones padding-0" layout="row">
                     <div class="input-edit md-accent" ng-click="vm.edit($event, bonificacion)" md-cell flex layout="row">
-                        <span flex>{{bonificacion.valor}}</span>
+                        <span flex>{{bonificacion.valor | currency:"$":0}}</span>
                         <md-button class="md-icon-button md-accent table-button" aria-label="cancel">
                             <md-icon md-font-icon="zmdi zmdi-edit"></md-icon>
                         </md-button>
