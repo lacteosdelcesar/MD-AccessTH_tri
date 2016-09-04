@@ -7,7 +7,7 @@
 
     angular
         .module('app')
-        // .config(config);
+        .config(config);
 
     /** @ngInject */
     function config($mdDateLocaleProvider) {
