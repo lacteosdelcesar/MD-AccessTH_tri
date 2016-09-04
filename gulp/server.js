@@ -29,7 +29,7 @@ function browserSyncInit(baseDir, files, browser) {
       middleware: [
         middleware,
         modRewrite([
-          '!\\.\\w+$ / [L]'
+          '^[^\\.]*$ /index.html [L]'
         ])
       ],
       routes: routes

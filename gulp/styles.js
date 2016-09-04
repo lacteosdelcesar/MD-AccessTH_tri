@@ -26,7 +26,7 @@ gulp.task('styles', ['triangular.scss'], function () {
     paths.src + '/app/**/*.scss',
     '!' + paths.src + '/app/app.scss',
     '!' + paths.src + '/app/**/_*.scss',
-    '!' + paths.src + '/app/triangular/**/*'
+    '!' + paths.src + '/app/core/triangular/**/*'
   ], { read: false });
 
   var injectOptions = {
