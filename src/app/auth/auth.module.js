@@ -7,8 +7,7 @@
         .config(config);
 
     /** @ngInject */
-    function config($stateProvider)
-    {
+    function config($stateProvider){
         $stateProvider
             .state('authentication', {
                 abstract: true,

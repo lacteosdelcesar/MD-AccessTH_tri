@@ -18,6 +18,7 @@
         });
 
         $httpProvider.interceptors.push('jwtInterceptor');
+        $httpProvider.interceptors.push('authErrorInterceptor');
 
         /////////
 
