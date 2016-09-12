@@ -2,5 +2,5 @@
     'use strict';
 
     angular
-        .module('superadmin', ['gestion_usuarios']);
+        .module('superadmin', ['gestion_usuarios', 'periodos']);
 })();
