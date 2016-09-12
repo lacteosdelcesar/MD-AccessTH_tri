@@ -1,0 +1,103 @@
+<md-card>
+    <md-toolbar class="md-table-toolbar md-default" >
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button md-primary" aria-label="back" ui-sref="triangular.horas_extra">
+                <md-icon md-font-icon="zmdi zmdi-arrow-left"></md-icon>
+            </md-button>
+            <h2 class="md-title">Dia a dia <span style="font-weight: bold">{{vm.empleado.nombre}}</span></h2>
+            <div flex></div>
+            <md-button class="md-fab md-mini" aria-label="addjornada" ng-click="vm.showModalAdd($event)">
+                <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar >
+    <md-table-container>
+        <table md-table md-progress="vm.promise" id="diadia">
+            <thead md-head md-order="vm.query.order">
+            <tr md-row id="head">
+                <th md-column md-order-by="fecha" class="col-fecha">Fecha</th>
+                <th md-column md-order-by="horas_entrada1" class="marca_hora">Hora Entrada1</th>
+                <th md-column md-order-by="horas_saida1" class="marca_hora">Hora Salida1</th>
+                <th md-column md-order-by="horas_entrada2" class="marca_hora">Hora Entrada2</th>
+                <th md-column md-order-by="horas_saida2" class="marca_hora">Hora Salida2</th>
+                <th md-column md-numeric md-order-by="horas.ho" class="col-hora">HO</th>
+                <th md-column md-numeric md-order-by="horas.rn" class="col-hora">RN</th>
+                <th md-column md-numeric md-order-by="horas.ed" class="col-hora">ED</th>
+                <th md-column md-numeric md-order-by="horas.en" class="col-hora">EN</th>
+                <th md-column md-numeric md-order-by="horas.fo" class="col-hora">FO</th>
+                <th md-column md-numeric md-order-by="horas.efd" class="col-hora">EFD</th>
+                <th md-column md-numeric md-order-by="horas.efn" class="col-hora">EFN</th>
+                <th md-column md-numeric md-order-by="horas.ttl" class="col-hora">Total</th>
+                <th md-column></th>
+            </tr>
+            </thead>
+            <tbody md-body md-auto-select>
+            <tr md-row
+                ng-repeat="jornada in vm.jornadas | orderBy: 'fecha' track by $index">
+                <td md-cell class="col-fecha" ng-class="{'festivo': jornada.dia_festivo}">
+                    {{ jornada.fecha | amDateFormat: "dddd D/MM" }}
+                    <md-tooltip>{{ jornada.fecha | amDateFormat: "dddd D [de] MMMM" }}</md-tooltip>
+                </td>
+                <td md-cell class="marca_hora">
+                    {{ vm.formatTime(jornada.hora_entrada1) | date: "HH:mm"}}
+                </td>
+                <td md-cell class="marca_hora">
+                    {{ vm.formatTime(jornada.hora_salida1) | date: "HH:mm"}}
+                </td>
+                <td md-cell class="marca_hora">
+                    {{ vm.formatTime(jornada.hora_entrada2) | date: "HH:mm"}}
+                </td>
+                <td md-cell class="marca_hora">
+                    {{ vm.formatTime(jornada.hora_salida2) | date: "HH:mm"}}
+                </td>
+                <td md-cell class="h-cell" style="border-left: #e1e1e1 1px solid;">
+                    {{ vm.formatTime2(jornada.horas.ho) }}<md-tooltip>Horas ordinarias trabajadas</md-tooltip>
+                </td>
+                <td md-cell class="h-cell">
+                    {{ vm.formatTime2(jornada.horas.rn) }}<md-tooltip>Recargo Nocturno</md-tooltip>
+                </td>
+                <td md-cell class="h-cell">
+                    {{ vm.formatTime2(jornada.horas.ed) }}<md-tooltip>Extra diurnas</md-tooltip>
+                </td>
+                <td md-cell class="h-cell">
+                    {{ vm.formatTime2(jornada.horas.en) }}<md-tooltip>Extra nocturnas</md-tooltip>
+                </td>
+                <td md-cell class="h-cell" ng-class="{'festivo': jornada.dia_festivo && jornada.horas.fo}">
+                    {{ vm.formatTime2(jornada.horas.fo) }}<md-tooltip>Festivo ordinarias</md-tooltip>
+                </td>
+                <td md-cell class="h-cell" ng-class="{'festivo': jornada.dia_festivo && jornada.horas.efd}">
+                    {{ vm.formatTime2(jornada.horas.efd) }}<md-tooltip>Extras festivo diurnas</md-tooltip>
+                </td>
+                <td md-cell class="h-cell" ng-class="{'festivo': jornada.dia_festivo && jornada.horas.efn}">
+                    {{ vm.formatTime2(jornada.horas.efn) }}<md-tooltip>Extras festivo nocturnas</md-tooltip>
+                </td>
+                <td md-cell class="h-cell">
+                    {{ vm.formatTime2(jornada.horas.ttl) }}<md-tooltip>total horas trabajadas</md-tooltip>
+                </td>
+                <td md-cell class="padding-left-10 padding-right-10">
+                    <div class="md-table-column-action">
+                        <md-button class="md-icon-button md-accent table-button" aria-label="ok"
+                                   ng-click="vm.showModalCalcular($event, jornada)">
+                            <md-icon md-font-icon="zmdi zmdi-edit"></md-icon>
+                            <md-tooltip>Modificar</md-tooltip>
+                        </md-button>
+                        <md-button class="md-icon-button md-warn table-button" aria-label="cancel"
+                                   ng-click="vm.delet($event, jornada)">
+                            <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+                            <md-tooltip>Eliminar</md-tooltip>
+                        </md-button>
+                    </div>
+                </td>
+            </tr>
+            <tr md-row ng-if="vm.jornadas.length <= 0">
+                <td md-cell colspan="14">
+                    <div flex class="inbox-no-email-selected" layout="column" layout-align="center">
+                        <h2>No se ha registrado ninguna jornada, en el periodo actual</h2>
+                    </div>
+                </td>
+            </tr>
+            <tr md-row style="height: 10px !important;"></tr>
+            </tbody>
+        </table>
+    </md-table-container>
+</md-card>

@@ -30,6 +30,19 @@ md-sidenav, md-content {
   height: 40px!important;
 }
 
+.md-table-column-action{
+  padding: 0 !important;
+  flex-direction: row;
+  display: flex;
+
+  .md-button{
+    visibility: hidden;
+  }
+}
+.md-row:hover .md-table-column-action .md-button {
+  visibility: visible;
+}
+
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject
  *  all your sass files automatically

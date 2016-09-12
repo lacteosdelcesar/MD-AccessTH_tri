@@ -1,0 +1,121 @@
+<md-card id="diadia">
+    <md-card class="md-table-toolbar md-default" id="card-dias-diadia">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button md-primary" aria-label="back" ui-sref="triangular.horas_extra">
+            <md-icon md-font-icon="zmdi zmdi-arrow-left" style="color: #d9d9d9"></md-icon>
+        </md-button>
+        <h2 class="md-title">Día a día</h2>
+        <md-tabs id="tabs-dias" flex md-dynamic-height
+                 md-autoselect="false"
+                 md-selected="vm.selectedIndex">
+            <md-tab ng-repeat="dia in vm.dias"
+                    label="{{dia.label}}"
+                    ng-disabled="dia.futuro"
+                    md-on-select="vm.getJornadas(dia.fecha)">
+            </md-tab>
+        </md-tabs>
+        <md-button class="md-icon-button" ng-click="vm.filter = true" id="filter-button" aria-label="show_filter">
+            <md-icon md-font-icon="zmdi zmdi-filter-list"></md-icon>
+        </md-button>
+    </div>
+    </md-card>
+    <md-toolbar ng-show="vm.filter" class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <md-icon md-font-icon="zmdi zmdi-search"></md-icon>
+            <form flex>
+                <input type="text" ng-model="vm.query.search" placeholder="Buscar empleado">
+            </form>
+            <md-button class="md-icon-button" ng-click="vm.removeFilter()" aria-label="remove_filter">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-table-container>
+        <table md-table md-progress="vm.promise">
+            <thead md-head md-order="vm.query.order">
+            <tr md-row id="head">
+                <th md-column>Cedula</th>
+                <th md-column md-order-by="empleado.nombre">Nombre</th>
+                <th md-column md-order-by="horas_entrada1" class="marca_hora">Hora Entrada1</th>
+                <th md-column md-order-by="horas_saida1" class="marca_hora">Hora Salida1</th>
+                <th md-column md-order-by="horas_entrada2" class="marca_hora">Hora Entrada2</th>
+                <th md-column md-order-by="horas_saida2" class="marca_hora">Hora Salida2</th>
+                <th md-column md-numeric md-order-by="horas.ho" class="col-hora">HO</th>
+                <th md-column md-numeric md-order-by="horas.rn" class="col-hora">RN</th>
+                <th md-column md-numeric md-order-by="horas.ed" class="col-hora">ED</th>
+                <th md-column md-numeric md-order-by="horas.en" class="col-hora">EN</th>
+                <th md-column md-numeric md-order-by="horas.fo" class="col-hora">FO</th>
+                <th md-column md-numeric md-order-by="horas.efd" class="col-hora">EFD</th>
+                <th md-column md-numeric md-order-by="horas.efn" class="col-hora">EFN</th>
+                <th md-column md-numeric md-order-by="horas.ttl" class="col-hora">Total</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody md-body md-auto-select>
+            <tr md-row
+                ng-repeat="jornada in vm.jornadas |
+                orderBy: vm.query.order |
+                filter: vm.query.search |
+                limitTo: vm.query.limit : (vm.query.page -1) * vm.query.limit
+                track by $index">
+                <td md-cell id="cell-empleado-cedula">{{ jornada.empleado.cedula }}</td>
+                <td md-cell id="cell-empleado-nombre">{{ jornada.empleado.nombre }}</td>
+                <td md-cell class="marca_hora">
+                    <md-input-container>
+                        <input type="time" aria-label="time" ng-blur="vm.saveJornada(jornada)" ng-model="jornada.hora_entrada1" next-on-enter>
+                    </md-input-container>
+                </td>
+                <td md-cell class="marca_hora">
+                    <md-input-container>
+                        <input type="time" aria-label="time" ng-blur="vm.saveJornada(jornada)" ng-model="jornada.hora_salida1" next-on-enter>
+                    </md-input-container>
+                </td>
+                <td md-cell class="marca_hora">
+                    <md-input-container>
+                        <input type="time" aria-label="time" ng-blur="vm.saveJornada(jornada)" ng-model="jornada.hora_entrada2" next-on-enter>
+                    </md-input-container>
+                </td>
+                <td md-cell class="marca_hora">
+                    <md-input-container>
+                        <input type="time" aria-label="time" ng-blur="vm.saveJornada(jornada)" ng-model="jornada.hora_salida2" next-on-enter>
+                    </md-input-container>
+                </td>
+                <td md-cell class="h-cell" style="border-left: #e1e1e1 1px solid;">
+                    {{ vm.formatTime2(jornada.horas.ho) }}<md-tooltip>Horas ordinarias trabajadas</md-tooltip>
+                </td>
+                <td md-cell class="h-cell">
+                    {{ vm.formatTime2(jornada.horas.rn) }}<md-tooltip>Recargo Nocturno</md-tooltip>
+                </td>
+                <td md-cell class="h-cell">
+                    {{ vm.formatTime2(jornada.horas.ed) }}<md-tooltip>Extra diurnas</md-tooltip>
+                </td>
+                <td md-cell class="h-cell">
+                    {{ vm.formatTime2(jornada.horas.en) }}<md-tooltip>Extra nocturnas</md-tooltip>
+                </td>
+                <td md-cell class="h-cell" ng-class="{'festivo': jornada.dia_festivo && jornada.horas.fo}">
+                    {{ vm.formatTime2(jornada.horas.fo) }}<md-tooltip>Festivo ordinarias</md-tooltip>
+                </td>
+                <td md-cell class="h-cell" ng-class="{'festivo': jornada.dia_festivo && jornada.horas.efd}">
+                    {{ vm.formatTime2(jornada.horas.efd) }}<md-tooltip>Extras festivo diurnas</md-tooltip>
+                </td>
+                <td md-cell class="h-cell" ng-class="{'festivo': jornada.dia_festivo && jornada.horas.efn}">
+                    {{ vm.formatTime2(jornada.horas.efn) }}<md-tooltip>Extras festivo nocturnas</md-tooltip>
+                </td>
+                <td md-cell class="h-cell" style="border-right-color: transparent">
+                    {{ vm.formatTime2(jornada.horas.ttl) }}<md-tooltip>total horas trabajadas</md-tooltip>
+                </td>
+                <td>&nbsp;</td>
+            </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+    <md-table-pagination md-limit="vm.query.limit"
+                         md-limit-options="vm.query.limitOptions"
+                         md-page-select
+                         md-boundary-links
+                         md-page="vm.query.page"
+                         md-total="{{vm.jornadas.length}}"
+                         md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}" >
+    </md-table-pagination>
+</md-card>
+

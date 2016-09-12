@@ -1,1 +1,80 @@
-asd
+<md-card>
+    <md-toolbar ng-show="!vm.filter" class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <h2 class="md-title">Empleados</h2>
+            <div flex></div>
+            <md-button class="md-accent md-raised" ui-sref="triangular.diadia" aria-label="go_to_jornadas" style="color: white">
+                Agregar jornadas
+            </md-button>
+            <md-button class="md-icon-button" ng-click="vm.filter = true" aria-label="show_filter">
+                <md-icon md-font-icon="zmdi zmdi-filter-list"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-toolbar ng-show="vm.filter" class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <md-icon md-font-icon="zmdi zmdi-search"></md-icon>
+            <form flex>
+                <input type="text" ng-model="vm.query.search" placeholder="Buscar empleado">
+            </form>
+            <md-button class="md-icon-button" ng-click="vm.removeFilter()" aria-label="remove_filter">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-table-container>
+        <table md-table md-progress="vm.promise">
+            <thead md-head md-order="vm.query.order">
+            <tr md-row>
+                <th md-column>Cedula</th>
+                <th md-column md-order-by="empleado.nombre">Nombre</th>
+                <th md-column class="h-cell" md-numeric md-order-by="ho">HO</th>
+                <th md-column class="h-cell" md-numeric md-order-by="rn">RN</th>
+                <th md-column class="h-cell" md-numeric md-order-by="ed">ED</th>
+                <th md-column class="h-cell" md-numeric md-order-by="en">EN</th>
+                <th md-column class="h-cell" md-numeric md-order-by="fo">FO</th>
+                <th md-column class="h-cell" md-numeric md-order-by="efd">EFD</th>
+                <th md-column class="h-cell" md-numeric md-order-by="efn">EFN</th>
+                <th md-column class="h-cell" md-numeric md-order-by="ttl">Total</th>
+                <th md-column class="h-cell" md-numeric md-order-by="dias">Dias</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody md-body md-auto-select>
+            <tr md-row
+                ng-repeat="horas in vm.hlaboradas | orderBy: vm.query.order | filter: vm.query.search | limitTo: vm.query.limit : (vm.query.page -1) * vm.query.limit">
+                <td md-cell>{{ horas.empleado.cedula }}</td>
+                <td md-cell>{{ horas.empleado.nombre }}</td>
+                <td md-cell class="h-cell">{{ vm.minToHour(horas.ho) }}<md-tooltip>horas ordinarias trabajadas</md-tooltip></td>
+                <td md-cell class="h-cell">{{ vm.minToHour(horas.rn) }}<md-tooltip>Recargo Nocturno</md-tooltip></td>
+                <td md-cell class="h-cell">{{ vm.minToHour(horas.ed) }}<md-tooltip>Extra diurnas</md-tooltip></td>
+                <td md-cell class="h-cell">{{ vm.minToHour(horas.en) }}<md-tooltip>Extra nocturnas</md-tooltip></td>
+                <td md-cell class="h-cell">{{ vm.minToHour(horas.fo) }}<md-tooltip>Festivo ordinarias</md-tooltip></td>
+                <td md-cell class="h-cell">{{ vm.minToHour(horas.efd) }}<md-tooltip>Extras festivo diurnas</md-tooltip></td>
+                <td md-cell class="h-cell">{{ vm.minToHour(horas.efn) }}<md-tooltip>Extras festivo nocturnas</md-tooltip></td>
+                <td md-cell class="h-cell">{{ vm.minToHour(horas.ttl) }}<md-tooltip>total horas trabajadas</md-tooltip></td>
+                <td md-cell class="h-cell">{{ horas.dias }}<md-tooltip>dias trabajados</md-tooltip></td>
+                <td md-cell class="padding-0">
+                    <div class="md-table-column-action">
+                        <md-button class="md-button md-icon-button md-primary"
+                                   ui-sref="triangular.diadia_empleado({empleado: horas.empleado})">
+                            <md-icon md-font-icon="zmdi zmdi-collection-plus"></md-icon>
+                            <md-tooltip>
+                                Día a día
+                            </md-tooltip>
+                        </md-button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+    <md-table-pagination md-limit="vm.query.limit"
+                         md-limit-options="vm.query.limitOptions"
+                         md-page-select
+                         md-boundary-links
+                         md-page="vm.query.page"
+                         md-total="{{vm.hlaboradas.length}}"
+                         md-label="{page: 'Página:', rowsPerPage: 'Filas por página:', of: 'de'}" >
+    </md-table-pagination>
+</md-card>

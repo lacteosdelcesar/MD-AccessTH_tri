@@ -1,0 +1,115 @@
+#diadia {
+  #card-dias-diadia {
+    color: white;
+    background-color: #0e51a0;
+    height: 60px;
+    padding: 6px 0;
+    #tabs-dias {
+      margin-left: 10px;
+      background-color: white;
+      padding-bottom: 1px;
+    }
+    #filter-button md-icon{
+      color: #d9d9d9;
+    }
+  }
+
+  #head {
+    min-height: 20px;
+    max-height: 20px;
+    height: 20px;
+  }
+
+  #cell-empleado-nombre {
+    min-width: 140px;
+    padding-right: 15px;
+  }
+   #cell-empleado-cedula {
+     padding-right: 5px;
+   }
+
+  md-table-container {
+    margin-top: 15px;
+  }
+
+  .festivo {
+    color: red;
+    font-weight: bold
+  }
+
+  .col-fecha {
+    padding-right: 10px;
+    min-width: 90px;
+    max-width: 90px;
+  }
+
+  .marca_hora {
+    text-align: center;
+    padding: 0 3px;
+    min-width: 80px;
+    max-width: 80px;
+
+    md-input-container{
+      padding-bottom: 0;
+      margin: 0;
+
+      .md-errors-spacer{
+        min-height: 0 !important;
+      }
+    }
+  }
+
+  .col-hora, .h-cell {
+    padding: 0 5px !important;
+    min-width: 30px;
+    max-width: 30px;
+  }
+
+  .h-cell {
+    border-right: #e1e1e1 1px solid;
+  }
+
+  .md-sort-icon {
+    min-width: 10px !important;
+    width: 10px !important;
+    svg {
+      margin-top: 5px;
+      height: 10px !important;
+      width: 10px !important;
+    }
+  }
+
+}
+
+#dialogNuevaJornada {
+  .md-toolbar-tools {
+    min-height: 60px !important;
+    md-input-container {
+      margin: 0 0 -20px;
+      width: 60%;
+      padding-bottom: 2px;
+
+      label {
+        margin: 0 0 -10px 0 !important;
+        color: whitesmoke !important;
+      }
+      input {
+        color: whitesmoke !important;
+      }
+      .md-errors-spacer {
+        min-height: 0px !important;
+      }
+
+      .md-datepicker-input-container {
+        margin-bottom: -12px !important;
+        input {
+          font-size: 20px;
+        }
+
+        .md-datepicker-expand-triangle {
+          border-top-color: white;
+        }
+      }
+    }
+  }
+}

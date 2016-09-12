@@ -20,7 +20,7 @@
             'quejas-y-reclamos',
 
             'empleados',
-            'horas_extras',
+            'horas_extra',
             'reporte_novedades'
         ]);
 })();

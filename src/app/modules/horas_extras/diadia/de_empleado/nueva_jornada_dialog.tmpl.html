@@ -1,0 +1,110 @@
+<div flex></div>
+<md-dialog aria-label="jornada" flex="40" flex-sm="60" flex-xs="100" id="dialogNuevaJornada">
+    <form name="formNuevaJornada">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-input-container ng-hide="vm.editFecha || formNuevaJornada.fecha.$invalid">
+                    <label>Fecha</label>
+                    <input value="{{vm.fecha | amDateFormat: 'dddd D [de] MMMM'}}" ng-disabled="vm.editar" ng-click="vm.editFecha = true" required>
+                </md-input-container>
+                <md-input-container ng-show="vm.editFecha || formNuevaJornada.fecha.$invalid">
+                    <label>Seleccione la fecha</label>
+                    <md-datepicker ng-model="vm.fecha" md-hide-icons="calendar" name="fecha"
+                                   md-min-date="vm.minFecha" md-max-date="vm.maxFecha"
+                                   md-date-filter="vm.fecha_trabajada" ng-required
+                                   ng-blur="vm.editFecha = false" ng-disabled="vm.editar">
+                    </md-datepicker>
+                </md-input-container>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="close">
+                    <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content layout-padding layout="column">
+            <div layout="row" layout-xs="column">
+                <md-input-container flex>
+                    <label>Hora Entrada 1</label>
+                    <input type="time" container="body" ng-model="vm.hora_entrada1" name="he1"
+                           ng-change="vm.validarForm(formNuevaJornada)" ng-disabled="formNuevaJornada.fecha.$invalid"
+                           autofocus required>
+
+                    <div ng-messages="formNuevaJornada.he1.$error" ng-show="formNuevaJornada.he1.$dirty">
+                        <div ng-message="required" name="he1.req">Este campo es requerido</div>
+                        <div ng-message="date">Formato de hora Invalido!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Hora Salida 1</label>
+                    <input type="time" container="body" ng-model="vm.hora_salida1" name="hs1"
+                           ng-disabled="formNuevaJornada.he1.$invalid" ng-change="vm.validarForm(formNuevaJornada)"
+                           ng-enter="vm.acept()" required>
+
+                    <div ng-messages="formNuevaJornada.hs1.$error" ng-show="formNuevaJornada.he1.$valid">
+                        <div ng-message="required">Este campo es requerido</div>
+                        <div ng-message="date">Formato de hora Invalido!</div>
+                    </div>
+                    <div ng-messages="formNuevaJornada.hs1" ng-show="vm.hora_entrada1">
+                        <div ng-message="entradaMayor">Hora de entrada mayor o igual</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout="row" layout-xs="column" layout-fill>
+                <md-input-container flex>
+                    <label>Hora Entrada 2</label>
+                    <input type="time" container="body" ng-model="vm.hora_entrada2" name="he2" delay="vm.delay"
+                           ng-disabled="formNuevaJornada.hs1.$invalid" ng-change="vm.validarForm(formNuevaJornada)">
+
+                    <div ng-messages="formNuevaJornada.he2.$error" ng-show="formNuevaJornada.he2.$dirty">
+                        <div ng-message="required">Este campo es requerido</div>
+                        <div ng-message="date">Formato de hora Invalido!</div>
+                    </div>
+                    <div ng-messages="formNuevaJornada.he2" ng-show="formNuevaJornada.he2.$dirty">
+                        <div ng-message="salida1Mayor">debe ser mayor que Hora salida 1</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Hora Salida 2</label>
+                    <input type="time" container="body" ng-model="vm.hora_salida2" name="hs2"
+                           ng-disabled="formNuevaJornada.he2.$viewValue == '' || formNuevaJornada.he2.salida1Mayor || formNuevaJornada.he2.$invalid"
+                           ng-required="formNuevaJornada.he2.$viewValue != '' && !formNuevaJornada.he2.salida1Mayor && formNuevaJornada.he2.$valid"
+                           ng-change="vm.validarForm(formNuevaJornada)" ng-enter="vm.acept()">
+
+                    <div ng-messages="formNuevaJornada.hs2.$error">
+                        <div ng-message="required">Este campo es requerido</div>
+                        <div ng-message="date">Formato de hora Invalido!</div>
+                    </div>
+                    <div ng-messages="formNuevaJornada.hs2"
+                         ng-show="formNuevaJornada.hs2.$dirty && formNuevaJornada.he2.$valid && formNuevaJornada.he2.$viewValue != ''">
+                        <div ng-message="entradaMayor">Hora de entrada mayor o igual</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span ng-show="formNuevaJornada.hs1.entradaMayor || formNuevaJornada.hs2.entradaMayor">
+                <md-icon md-font-icon="zmdi zmdi-info-outline" style="font-size: 25px; color: red;"></md-icon>
+                <md-tooltip md-direction="right" style="font-size: 15px;">
+                    Si la hora de salida es menor o igual que la de entrada, se tomara como del dia siguiente
+                </md-tooltip>
+            </span>
+            <span ng-show="vm.horas_trabajadas > 12">
+                <md-icon md-font-icon="zmdi zmdi-alert-polygon" style="font-size: 25px; color: red;"></md-icon>
+                <md-tooltip md-direction="right" style="font-size: 15px;">
+                    {{vm.horas_trabajadas}} horas laboradas, esto supera el máximo de horas por jornada
+                </md-tooltip>
+            </span>
+            <span flex></span>
+            <md-button class="md-primary md-raised" ng-click="vm.acept()"
+                       ng-disabled="formNuevaJornada.$invalid">
+                Aceptar
+            </md-button>
+            <md-button class="md-warn md-raised" ng-click="vm.cancel()" type="button">
+                cancelar
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
+<div flex="5" flex-xs="0"></div>
+
+
