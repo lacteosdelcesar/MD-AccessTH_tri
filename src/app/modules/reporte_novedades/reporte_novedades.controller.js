@@ -28,6 +28,7 @@
                     $state.go('triangular.reporte_novedades.viajes');
                     break;
                 case 2:
+                    $state.go('triangular.reporte_novedades.descuentos');
                     break;
                 case 3:
                     break;
@@ -43,7 +44,8 @@
             case 'triangular.reporte_novedades.viajes':
                 vm.selectedTab = 1;
                 break;
-            case 2:
+            case 'triangular.reporte_novedades.descuentos':
+                vm.selectedTab = 2;
                 break;
             case 3:
                 break;

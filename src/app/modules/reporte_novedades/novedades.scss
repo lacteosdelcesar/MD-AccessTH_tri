@@ -17,8 +17,9 @@
   visibility: visible;
 }
 
-#card-nueva-bonificacion {
-  background-color: rgb(14,81,160);
+.card-nueva-novedad {
+  background-color: rgb(14,81,160) !important;
+  padding: 10px !important;
 
   #label{
     font-size: 1.9rem;
@@ -62,8 +63,23 @@
     }
   }
 
-  #btn-guardar-bonificacion {
-    margin: 2px 0;
-    height: 36px;
+  #btn-guardar {
+    margin: 2px 0 !important;
+    height: 36px !important;
+  }
+}
+
+#card-nuevo-descuento {
+  #label{
+    font-size: 1.5rem;
+    height: 2rem;
+    line-height: 1.2;
+    padding-left: 10px;
+  }
+  md-select {
+    height: 40px !important;
+    md-select-value {
+      padding: 0 2px 0 5px;
+    }
   }
 }

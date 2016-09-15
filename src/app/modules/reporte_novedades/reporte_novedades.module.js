@@ -31,6 +31,12 @@
                 templateUrl: 'app/modules/reporte_novedades/viajes/viajes.tmpl.html',
                 controller: 'ViajesController',
                 controllerAs: 'vm'
+            })
+            .state('triangular.reporte_novedades.descuentos', {
+                url: '/descuentos',
+                templateUrl: 'app/modules/reporte_novedades/descuentos/descuentos.tmpl.html',
+                controller: 'DescuentosController',
+                controllerAs: 'vm'
             });
 
         triMenuProvider.addMenu({
